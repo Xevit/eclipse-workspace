@@ -1,0 +1,53 @@
+package com.ptellos.aplication;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import com.ptellos.dao.DAOLogin;
+
+@WebServlet(name = "LoginServlet", urlPatterns = {"login_usuario"}) 
+public class LoginServlet extends HttpServlet {
+	
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    	//Aquí sería escribir un mensaje de error normal.
+        response.getWriter().print("ERROR: En esta página no se puede hacer un HTTP GET");  
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        if (checkUser(request)) {
+        	//El usuario se ha logueado correctamente
+        	//Conservar login en cache/cookies
+        	request.setAttribute("user", "login: Bien logueado" + request.getParameter("username"));
+            request.getRequestDispatcher("response.jsp").forward(request, response);
+        } else {
+        	//El usuario o contraseña no es correcto
+        	
+        	request.setAttribute("user", "login: Mal logueado" + request.getParameter("username"));
+            request.getRequestDispatcher("response.jsp").forward(request, response); 
+        }   
+    }
+	
+    public boolean checkUser(HttpServletRequest request) {
+    	boolean existUser = false;
+    	List<String> args = new ArrayList<String>();
+    	String nombre = request.getParameter("username");
+    	String password = request.getParameter("password");
+    	try {
+			if (DAOLogin.existUser(nombre, password)) {
+				existUser = true;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return existUser;
+    }
+}
