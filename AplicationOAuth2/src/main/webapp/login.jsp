@@ -6,6 +6,7 @@
 		 <link href="css/jumbotron.css" rel="stylesheet">
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/ajax_json_logreg.js"></script>
 		
 	</head>
 <body>

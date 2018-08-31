@@ -2,7 +2,9 @@ package com.ptellos.aplication;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +12,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
 import com.ptellos.dao.DAOLogin;
 
 @WebServlet(name = "LoginServlet", urlPatterns = {"login_usuario"}) 
@@ -23,6 +27,15 @@ public class LoginServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
+    	Map <String, Object> map = new HashMap<String, Object>();
+    	boolean isValid = false;
+    	String username = request.getParameter("username");
+    	if (username!= null && username.trim().length() != 0) {
+    		isValid = true;
+    		map.put("username", username);
+    	}
+    	map.put("isValid", isValid);
+    	write(response, map);
         if (checkUser(request)) {
         	//El usuario se ha logueado correctamente
         	//Conservar login en cache/cookies
@@ -39,7 +52,13 @@ public class LoginServlet extends HttpServlet {
         }  
     }
 	
-    public boolean checkUser(HttpServletRequest request) {
+    private void write(HttpServletResponse response, Map<String, Object> map) throws IOException {
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(new Gson().toJson(map));
+	}
+
+	public boolean checkUser(HttpServletRequest request) {
     	boolean existUser = false;
     	String nombre = request.getParameter("username");
     	String password = request.getParameter("password");
