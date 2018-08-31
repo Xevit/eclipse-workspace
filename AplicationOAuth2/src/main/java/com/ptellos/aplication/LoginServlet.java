@@ -17,8 +17,8 @@ public class LoginServlet extends HttpServlet {
 	
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
-    	//Aquí sería escribir un mensaje de error normal.
-        response.getWriter().print("ERROR: En esta página no se puede hacer un HTTP GET");  
+    	//Aquï¿½ serï¿½a escribir un mensaje de error normal.
+        response.getWriter().print("ERROR: En esta pï¿½gina no se puede hacer un HTTP GET");  
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -33,10 +33,10 @@ public class LoginServlet extends HttpServlet {
         	//request.getServletContext().getRequestDispatcher("/index.html").forward(request,response);
         	response.sendRedirect("/AplicationOAuth2");
         } else {
-        	//El usuario o contraseña no es correcto
+        	//El usuario o contraseï¿½a no es correcto
         	request.setAttribute("user", "login: Mal logueado" + request.getParameter("username"));
             request.getRequestDispatcher("response.jsp").forward(request, response); 
-        }   
+        }  
     }
 	
     public boolean checkUser(HttpServletRequest request) {
@@ -61,7 +61,7 @@ public class LoginServlet extends HttpServlet {
     	for (Cookie cookie : cookies) {
     	    //Buscamos la cookie que necesitamos.
     	    //Esta es la forma original aunque me voy a quedar con la abreviada de momento
-    		//Aquí deberíamos ver si la cookie actual está en BBDD
+    		//Aquï¿½ deberï¿½amos ver si la cookie actual estï¿½ en BBDD
     		//if ("profileUrl".equals(cookie.getName())  && "/userName".equals(cookie.getPath())) {
     		if ("profileUrl".equals(cookie.getName())) {
     	        cookieToProcess = cookie;
