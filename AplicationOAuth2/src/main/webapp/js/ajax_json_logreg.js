@@ -5,7 +5,7 @@
 $(document).ready(function(){
 	$('#login-form').submit(function(){
 		$.ajax({
-			url: 'update',
+			url: 'login_usuario',
 			type: 'POST',
 			datatype: 'json',
 			data: $('#updateUsername').serialize(),
