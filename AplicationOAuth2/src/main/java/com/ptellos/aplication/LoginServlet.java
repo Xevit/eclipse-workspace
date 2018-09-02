@@ -21,35 +21,31 @@ public class LoginServlet extends HttpServlet {
 	
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
-    	//Aqu� ser�a escribir un mensaje de error normal.
-        response.getWriter().print("ERROR: En esta p�gina no se puede hacer un HTTP GET");  
+    	//Aqui sera escribir un mensaje de error normal.
+        response.getWriter().print("ERROR: En esta pagina no se puede hacer un HTTP GET");  
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
     	Map <String, Object> map = new HashMap<String, Object>();
     	boolean isValid = false;
+    	boolean goodFormat = false;
     	String username = request.getParameter("username");
     	if (username!= null && username.trim().length() != 0) {
-    		isValid = true;
-    		map.put("username", username);
+    		goodFormat = true;
+    		if (checkUser(request)) {
+            	successUser(request, response);
+            	response.sendRedirect("/AplicationOAuth2");
+    		} else {
+    			map.put("username", username);
+    		}
     	}
+    	/* Esto lo vamos a usar siempre y cuando necesitemos que un resultado vuelva al front
+    	map.put("username", username);
+    	write(response, map); */
+    	map.put("goodFormat", goodFormat);
     	map.put("isValid", isValid);
     	write(response, map);
-        if (checkUser(request)) {
-        	//El usuario se ha logueado correctamente
-        	//Conservar login en cache/cookies
-        	successUser(request, response);
-        	//request.setAttribute("user", "login: Bien logueado" + request.getParameter("username"));
-            //request.getRequestDispatcher("response.jsp").forward(request, response);
-        	//request.getRequestDispatcher("/index.html").forward(request, response);
-        	//request.getServletContext().getRequestDispatcher("/index.html").forward(request,response);
-        	response.sendRedirect("/AplicationOAuth2");
-        } else {
-        	//El usuario o contrase�a no es correcto
-        	request.setAttribute("user", "login: Mal logueado" + request.getParameter("username"));
-            request.getRequestDispatcher("response.jsp").forward(request, response); 
-        }  
     }
 	
     private void write(HttpServletResponse response, Map<String, Object> map) throws IOException {
@@ -80,7 +76,7 @@ public class LoginServlet extends HttpServlet {
     	for (Cookie cookie : cookies) {
     	    //Buscamos la cookie que necesitamos.
     	    //Esta es la forma original aunque me voy a quedar con la abreviada de momento
-    		//Aqu� deber�amos ver si la cookie actual est� en BBDD
+    		//Aqui deberiamos ver si la cookie actual esta en BBDD
     		//if ("profileUrl".equals(cookie.getName())  && "/userName".equals(cookie.getPath())) {
     		if ("profileUrl".equals(cookie.getName())) {
     	        cookieToProcess = cookie;

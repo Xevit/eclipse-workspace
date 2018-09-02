@@ -72,3 +72,8 @@ AplicationOAuth2/build/tmp/war/MANIFEST.MF
 *.lock
 *.component
 *.properties
+AplicationOAuth2/.gradle/buildOutputCleanup/outputFiles.bin
+AplicationOAuth2/.gradle/buildOutputCleanup/cache.properties
+AplicationOAuth2/.gradle/buildOutputCleanup/buildOutputCleanup.lock
+AplicationOAuth2/build/tmp/war/MANIFEST.MF
+AplicationOAuth2/.gradle/buildOutputCleanup/buildOutputCleanup.lock
