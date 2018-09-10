@@ -6,7 +6,6 @@
 		 <link href="css/jumbotron.css" rel="stylesheet">
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/jquery-1.11.1.min.js"></script>
-		<script src="js/ajax_json_logreg.js"></script>
 		
 	</head>
 <body>
@@ -60,7 +59,7 @@
 											</div>
 										</div>-->
 									</form>
-									<p id="loginhide"/>
+									<p id="loginhide" style="color:red"/>
 									<form id="register-form" action="registra_usuario" method="post" role="form" style="display: none;">
 										<div class="form-group">
 											<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
@@ -92,6 +91,7 @@
 	</main>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/login.js"></script>
+	<script src="js/ajax_json_logreg.js"></script>
 	
 </body>
 </html>

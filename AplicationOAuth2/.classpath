@@ -19,7 +19,7 @@
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="src/lib/postgresql-42.2.4.jar"/>
 	<classpathentry kind="lib" path="lib/gson-2.6.2.jar"/>
+	<classpathentry kind="lib" path="lib/postgresql-42.2.4.jar"/>
 	<classpathentry kind="output" path="bin/default"/>
 </classpath>
