@@ -1,6 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 		<link href="css/login.css" rel="stylesheet">
 		 <link href="css/jumbotron.css" rel="stylesheet">
@@ -58,8 +61,9 @@
 												</div>
 											</div>
 										</div>-->
+										<p id="loginhide" style="color:red"/>
 									</form>
-									<p id="loginhide" style="color:red"/>
+									
 									<form id="register-form" action="registra_usuario" method="post" role="form" style="display: none;">
 										<div class="form-group">
 											<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
@@ -80,6 +84,8 @@
 												</div>
 											</div>
 										</div>
+										<p id="reginhideKO" style="color:red"/>
+										<p id="reginhideOK" style="color:green"/>
 									</form>
 								</div>
 							</div>
@@ -91,7 +97,7 @@
 	</main>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/login.js"></script>
-	<script src="js/ajax_json_logreg.js"></script>
+	<script src="js/ajax_json_log.js"></script>
 	
 </body>
 </html>

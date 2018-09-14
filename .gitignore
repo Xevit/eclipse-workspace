@@ -358,3 +358,5 @@ AplicationOAuth2/.gradle/4.9/taskHistory/taskHistory.bin
 AplicationOAuth2/.gradle/4.9/taskHistory/taskHistory.lock
 AplicationOAuth2/.gradle/buildOutputCleanup/buildOutputCleanup.lock
 AplicationOAuth2/.gradle/buildOutputCleanup/outputFiles.bin
+/.metadata/
+/.recommenders/

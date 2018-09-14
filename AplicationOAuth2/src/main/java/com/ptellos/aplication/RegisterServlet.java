@@ -2,6 +2,8 @@ package com.ptellos.aplication;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,10 +11,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.ptellos.dao.DAORegistro;
 
 @WebServlet(name = "RegisterServlet", urlPatterns = { "registra_usuario" })
 public class RegisterServlet extends HttpServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -20,22 +28,33 @@ public class RegisterServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException{
-		
-		if (checkUser(request)) {
-			// Si el usuario existe avisamos de que el usuario ya existe
-			request.setAttribute("user", "El usuario ya existe!: " + request.getParameter("username"));
-			request.getRequestDispatcher("response.jsp").forward(request, response);
-		} else {
-			// Si el usuario no existe le registramos
-			setUser(request);	
-			request.setAttribute("user", "register: " + request.getParameter("username"));
-			request.getRequestDispatcher("response.jsp").forward(request, response);
+			throws ServletException, IOException {
+		Map<String, Object> map = new HashMap<String, Object>();
+		boolean userExist = false;
+		boolean goodFormat = false;
+		String username = request.getParameter("username");
+		if (username != null && username.trim().length() != 0) {
+			goodFormat = true;
+			if (checkUser(request)) {
+				// Si el usuario existe avisamos de que el usuario ya existe
+				userExist = true;
+			} else {
+				// Si el usuario no existe le registramos
+				setUser(request);
+			}
 		}
-		
+		map.put("goodFormat", goodFormat);
+		map.put("userExist", userExist);
+		write(response, map);
 	}
 
-	public boolean checkUser(HttpServletRequest request)  {
+	private void write(HttpServletResponse response, Map<String, Object> map) throws IOException {
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(new Gson().toJson(map));
+	}
+
+	public boolean checkUser(HttpServletRequest request) {
 		boolean existe = false;
 		try {
 			if (DAORegistro.existUser(request.getParameter("username"))) {
@@ -50,7 +69,7 @@ public class RegisterServlet extends HttpServlet {
 		}
 		return existe;
 	}
-	
+
 	public void setUser(HttpServletRequest request) {
 		try {
 			DAORegistro.setUser(request);
@@ -60,5 +79,5 @@ public class RegisterServlet extends HttpServlet {
 			System.out.println("Error en ClassNotFoundException");
 		}
 	}
-	
+
 }
