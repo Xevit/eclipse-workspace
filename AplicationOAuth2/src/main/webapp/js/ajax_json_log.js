@@ -2,6 +2,16 @@
  * JavaScript para el envío de información al Login de usuarios.
  */
 
+$('#login-form').submit(function(){
+	$('#loginhide').hide();
+})
+
+$('#register-form').submit(function(){
+	$('#reginhideKO').hide();
+	$('#reginhideOK').hide();
+})
+
+
 $(document).ready(function(){
 	$('#login-form').submit(function(){
 		$.ajax({
