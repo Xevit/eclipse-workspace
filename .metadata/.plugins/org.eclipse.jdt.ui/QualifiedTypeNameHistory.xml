@@ -20,4 +20,6 @@
 <fullyQualifiedTypeName name="com.ptellos.dao.DAORegistro"/>
 <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
 <fullyQualifiedTypeName name="javax.servlet.http.Cookie"/>
+<fullyQualifiedTypeName name="org.codehaus.httpcache4j.uri.URIBuilder"/>
+<fullyQualifiedTypeName name="org.apache.http.client.utils.URIBuilder"/>
 </qualifiedTypeNameHistroy>
