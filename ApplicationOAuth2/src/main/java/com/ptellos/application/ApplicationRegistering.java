@@ -1,6 +1,7 @@
 package com.ptellos.application;
 
 import java.io.IOException;
+import java.net.URI;
 import java.net.URISyntaxException;
 
 import javax.servlet.ServletException;
@@ -16,7 +17,7 @@ import org.apache.http.client.utils.URIBuilder;
  * 
  */
 
-@WebServlet(name = "ApplicationRegistering", urlPatterns = { "AltaEnAPI" })
+@WebServlet("/AltaEnAPI")
 public class ApplicationRegistering extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -31,27 +32,38 @@ public class ApplicationRegistering extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String oauthUri = "";
+		/*
+		 * EN URL, 2. PASOS CONTINUOS. 05 Explico el problema que había
+		 */
+		
+		//String oauthUri = "";
+		URI oauthUri = null;
 		
 		try {
-			oauthUri = new URIBuilder(Constantes.DNS + Constantes.URL_API)
-					.setParameter(Constantes.NOMBRE, Constantes.NOMBRE_APPLICATION)
-					.build().toASCIIString();
-		} catch (URISyntaxException e) {			
-			e.printStackTrace();
+			System.out.println("Accedemos a la construcción de la URI");
+			oauthUri = new URIBuilder()
+					.setScheme("http")
+					.setHost("localhost")
+					.setPort(8080)
+					.setPath("/APIOAuth2")
+					//.addParameter("nombreApplication", "ApplicationoAuth2")
+					//.setParameter("nombre_application", "ApplicationoAuth2")
+					.build();//.toASCIIString();
+		} catch (Exception e) {			
+			System.out.println("Error en la construcción de la URI: " + oauthUri.toString());
 		}
 //		oauthUri = new URIBuilder(authServerBaseUriCallback + authorizationServerIdCallback)
 //				.setParameter(AbanteIDConstants.CODE, authCode).setParameter("grant_type", "authorization_code")
 //				.setParameter("client_id", appOAuthClientId).setParameter("client_secret", apiKey)
 //				.setParameter("redirect_uri", appOAuthRedirectUriCallback).setParameter(AbanteIDConstants.STATE, state)
 //				.build().toASCIIString();
-		response.sendRedirect(oauthUri);
+		//response.sendRedirect(oauthUri);
 		
-		new Thread() {
-	         public void run() {
-	            
-	         }
-	      }.start();
+//		new Thread() {
+//	         public void run() {
+//	            
+//	         }
+//	      }.start();
 		
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
@@ -61,7 +73,7 @@ public class ApplicationRegistering extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		response.getWriter().print("ERROR: En esta pagina no se puede hacer un HTTP POST");
 	}
 
 }
