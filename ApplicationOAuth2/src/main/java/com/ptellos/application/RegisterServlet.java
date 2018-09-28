@@ -61,6 +61,7 @@ public class RegisterServlet extends HttpServlet {
 				existe = true;
 			}
 		} catch (SQLException esql) {
+			//TODO: En todos estos catch activar LOGGER
 			System.out.println("Error en SQLException");
 		} catch (ClassNotFoundException eclass) {
 			System.out.println("Error en ClassNotFoundException");
@@ -74,6 +75,7 @@ public class RegisterServlet extends HttpServlet {
 		try {
 			DAORegistro.setUser(request);
 		} catch (SQLException esql) {
+			//TODO: En todos estos catch activar LOGGER
 			System.out.println("Error en SQLException");
 		} catch (ClassNotFoundException eclass) {
 			System.out.println("Error en ClassNotFoundException");

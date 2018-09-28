@@ -35,29 +35,28 @@ public class ApplicationRegistering extends HttpServlet {
 		/*
 		 * EN URL, 2. PASOS CONTINUOS. 05 Explico el problema que había
 		 */
+		String oauthUri = "";
 		
-		//String oauthUri = "";
-		URI oauthUri = null;
-		
+		System.out.println("Accedemos a la construcción de la URI");
 		try {
-			System.out.println("Accedemos a la construcción de la URI");
 			oauthUri = new URIBuilder()
-					.setScheme("http")
-					.setHost("localhost")
-					.setPort(8080)
-					.setPath("/APIOAuth2")
-					//.addParameter("nombreApplication", "ApplicationoAuth2")
-					//.setParameter("nombre_application", "ApplicationoAuth2")
-					.build();//.toASCIIString();
-		} catch (Exception e) {			
-			System.out.println("Error en la construcción de la URI: " + oauthUri.toString());
+					.setScheme(Constants.SCHEME)
+					.setHost(Constants.HOST)
+					.setPort(Constants.PORT)
+					.setPath("/" + Constants.URL_API)
+					.setParameter(Constants.REDIRECT, Constants.REDIRECT_APPLICATION)
+					.build().toASCIIString();
+		} catch (URISyntaxException e) {
+			/*
+			 * logger.debug("Ha ocurrido un error al dar de alta la aplicación en la API: " + e);
+			 * Activar cuando dispongamos de logger
+			 */
+			e.printStackTrace();
 		}
-//		oauthUri = new URIBuilder(authServerBaseUriCallback + authorizationServerIdCallback)
-//				.setParameter(AbanteIDConstants.CODE, authCode).setParameter("grant_type", "authorization_code")
-//				.setParameter("client_id", appOAuthClientId).setParameter("client_secret", apiKey)
-//				.setParameter("redirect_uri", appOAuthRedirectUriCallback).setParameter(AbanteIDConstants.STATE, state)
-//				.build().toASCIIString();
-		//response.sendRedirect(oauthUri);
+		response.sendRedirect(oauthUri);
+		/*
+		 * Aquí vamos a esperar hasta que la API nos confirme aprobada o rechazada la application
+		 */
 		
 //		new Thread() {
 //	         public void run() {
@@ -65,7 +64,6 @@ public class ApplicationRegistering extends HttpServlet {
 //	         }
 //	      }.start();
 		
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**

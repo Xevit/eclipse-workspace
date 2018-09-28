@@ -22,4 +22,5 @@
 <fullyQualifiedTypeName name="javax.servlet.http.Cookie"/>
 <fullyQualifiedTypeName name="org.codehaus.httpcache4j.uri.URIBuilder"/>
 <fullyQualifiedTypeName name="org.apache.http.client.utils.URIBuilder"/>
+<fullyQualifiedTypeName name="java.net.URI"/>
 </qualifiedTypeNameHistroy>

@@ -72,7 +72,7 @@ public class LoginServlet extends HttpServlet {
 				existUser = true;
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			// TODO Activar LOGGER
 			e.printStackTrace();
 		}
 		return existUser;
@@ -83,11 +83,6 @@ public class LoginServlet extends HttpServlet {
 		Cookie[] cookies = request.getCookies();
 		Cookie cookieToProcess = null;
 		for (Cookie cookie : cookies) {
-			// Buscamos la cookie que necesitamos.
-			// Esta es la forma original aunque me voy a quedar con la abreviada de momento
-			// Aqui deberiamos ver si la cookie actual esta en BBDD
-			// if ("profileUrl".equals(cookie.getName()) &&
-			// "/userName".equals(cookie.getPath())) {
 			if ("profileUrl".equals(cookie.getName())) {
 				cookieToProcess = cookie;
 				break;
@@ -105,6 +100,7 @@ public class LoginServlet extends HttpServlet {
 			response.addCookie(newCookie);
 		} else {
 			String cookieValue = cookieToProcess.getValue();// Retrieve value from the cookie.
+			// TODO: Activar LOGGER y mostrar la cookie en modo debug
 		}
 	}
 }
