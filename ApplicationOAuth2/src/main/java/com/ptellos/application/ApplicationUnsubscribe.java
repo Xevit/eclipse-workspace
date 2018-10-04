@@ -1,11 +1,15 @@
 package com.ptellos.application;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.http.client.utils.URIBuilder;
 
 /**
  * Servlet implementation class ApplicationUnsubscribe
@@ -14,28 +18,46 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/BajaEnAPI")
 public class ApplicationUnsubscribe extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ApplicationUnsubscribe() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	public ApplicationUnsubscribe() {
+		super();
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String oauthUri = "";
+
+		// Logear
+		System.out.println("Accedemos a la construcción de la URI para desuscribir la application");
+		try {
+			oauthUri = new URIBuilder().setScheme(Constants.SCHEME).setHost(Constants.HOST).setPort(Constants.PORT)
+					.setPath("/" + Constants.PATH_API + "/" + Constants.PATH_UNSUBSCRIBE)
+					.setParameter(Constants.REDIRECT, Constants.REDIRECT_APPLICATION)
+					// Este parametro debería estar codificado con una clave AES
+					.setParameter(Constants.CODE_SECRET, Constants.CODE_SECRET_VALUE).build().toASCIIString();
+		} catch (URISyntaxException e) {
+			/*
+			 * logger.debug("Ha ocurrido un error al dar de alta la aplicación en la API: "
+			 * + e); Activar cuando dispongamos de logger
+			 */
+			e.printStackTrace();
+		}
+		response.sendRedirect(oauthUri);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.getWriter().print("ERROR: En esta pagina no se puede hacer un HTTP POST");
 	}
 

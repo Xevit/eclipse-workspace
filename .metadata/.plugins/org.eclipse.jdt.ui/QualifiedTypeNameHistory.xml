@@ -6,8 +6,6 @@
 <fullyQualifiedTypeName name="server.ImplServer"/>
 <fullyQualifiedTypeName name="client.ImplCliente"/>
 <fullyQualifiedTypeName name="java.lang.Thread"/>
-<fullyQualifiedTypeName name="java.io.BufferedReader"/>
-<fullyQualifiedTypeName name="java.io.InputStreamReader"/>
 <fullyQualifiedTypeName name="java.io.InputStream"/>
 <fullyQualifiedTypeName name="java.util.Map"/>
 <fullyQualifiedTypeName name="java.util.Enumeration"/>
@@ -23,4 +21,16 @@
 <fullyQualifiedTypeName name="org.codehaus.httpcache4j.uri.URIBuilder"/>
 <fullyQualifiedTypeName name="org.apache.http.client.utils.URIBuilder"/>
 <fullyQualifiedTypeName name="java.net.URI"/>
+<fullyQualifiedTypeName name="java.net.URL"/>
+<fullyQualifiedTypeName name="java.net.URLConnection"/>
+<fullyQualifiedTypeName name="java.net.HttpURLConnection"/>
+<fullyQualifiedTypeName name="java.io.ByteArrayOutputStream"/>
+<fullyQualifiedTypeName name="java.io.OutputStream"/>
+<fullyQualifiedTypeName name="java.io.InputStreamReader"/>
+<fullyQualifiedTypeName name="java.io.BufferedReader"/>
+<fullyQualifiedTypeName name="com.ptellos.application.Constants"/>
+<fullyQualifiedTypeName name="org.apache.http.client.utils.URIUtils"/>
+<fullyQualifiedTypeName name="com.ptellos.dao.DAORegisterApplication"/>
+<fullyQualifiedTypeName name="java.net.URLDecoder"/>
+<fullyQualifiedTypeName name="com.ptellos.dao.DAOUnsubscribeApplication"/>
 </qualifiedTypeNameHistroy>
