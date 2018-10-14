@@ -32,24 +32,34 @@ public class ApplicationUnsubscribe extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String oauthUri = "";
+		System.out.println("ApplicationUnsubscribe - doGet()");
+		
+		String path = request.getRequestURI();
+		if (path.equals("/ApplicationOAuth2/AltaEnAPI")) {
+			String oauthUri = "";
 
-		// Logear
-		System.out.println("Accedemos a la construcción de la URI para desuscribir la application");
-		try {
-			oauthUri = new URIBuilder().setScheme(Constants.SCHEME).setHost(Constants.HOST).setPort(Constants.PORT)
-					.setPath("/" + Constants.PATH_API + "/" + Constants.PATH_UNSUBSCRIBE)
-					.setParameter(Constants.REDIRECT, Constants.REDIRECT_APPLICATION)
-					// Este parametro debería estar codificado con una clave AES
-					.setParameter(Constants.CODE_SECRET, Constants.CODE_SECRET_VALUE).build().toASCIIString();
-		} catch (URISyntaxException e) {
-			/*
-			 * logger.debug("Ha ocurrido un error al dar de alta la aplicación en la API: "
-			 * + e); Activar cuando dispongamos de logger
-			 */
-			e.printStackTrace();
+			// Logear
+			try {
+				oauthUri = new URIBuilder().setScheme(Constants.SCHEME).setHost(Constants.HOST).setPort(Constants.PORT)
+						.setPath("/" + Constants.PATH_API + "/" + Constants.PATH_UNSUBSCRIBE)
+						.setParameter(Constants.REDIRECT, Constants.REDIRECT_APPLICATION)
+						// Este parametro debería estar codificado con una clave AES
+						.setParameter(Constants.CODE_SECRET, Constants.CODE_SECRET_VALUE).build().toASCIIString();
+			} catch (URISyntaxException e) {
+				/*
+				 * logger.debug("Ha ocurrido un error al dar de alta la aplicación en la API: "
+				 * + e); Activar cuando dispongamos de logger
+				 */
+				e.printStackTrace();
+			}
+			response.sendRedirect(oauthUri);
+		} else if(path.equals("/ApplicationOAuth2/AltaEnAPI/Confirmation")) {
+			
+		} else {
+			
 		}
-		response.sendRedirect(oauthUri);
+		
+		
 	}
 
 	/**
@@ -58,6 +68,7 @@ public class ApplicationUnsubscribe extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		System.out.println("ApplicationUnsubscribe - doPost()");
 		response.getWriter().print("ERROR: En esta pagina no se puede hacer un HTTP POST");
 	}
 

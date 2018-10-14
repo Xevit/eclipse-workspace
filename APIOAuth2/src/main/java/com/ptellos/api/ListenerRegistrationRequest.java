@@ -1,6 +1,7 @@
 package com.ptellos.api;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URLDecoder;
 
 import javax.servlet.ServletException;
@@ -9,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.http.client.utils.URIBuilder;
+
+import com.ptellos.api.Constants;
 import com.ptellos.dao.DAORegisterApplication;
 
 /**
@@ -32,25 +36,22 @@ public class ListenerRegistrationRequest extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		/*
-		 * PRUEBA:
-		 * 
-		 * String queryCompleta = request.getQueryString();
-		 * response.getWriter().append("Served at: ").append(queryCompleta);
-		 * 
-		 */
-		// Extraemos los parámetros de la query
-		// String queryCompleta = URLDecoder.decode(request.getQueryString(), "UTF-8");
-
+		System.out.println("ListenerRegistrationRequest - doGet()");
 		String application = URLDecoder.decode(request.getParameter("url_redirect"), "UTF-8");
 		String secretKey = URLDecoder.decode(request.getParameter("code_secret"), "UTF-8");
-
+		
+		boolean exist = true;
 		try {
 			if (DAORegisterApplication.existApp(application, secretKey)) {
 				// Aquí al existir la app no se si decir algo como "ya estaba dada de alta" o no
 				// decir nada.
+				String oauthUri = setURI(exist);
+				response.sendRedirect(oauthUri);
 			} else {
 				DAORegisterApplication.registerApplication(application, secretKey);
+				exist = false;
+				String oauthUri = setURI(exist);
+				response.sendRedirect(oauthUri);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -63,7 +64,48 @@ public class ListenerRegistrationRequest extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		System.out.println("ListenerRegistrationRequest - doPost()");
 		doGet(request, response);
+	}
+	
+	private String setURI(boolean exist) {
+		System.out.println("ListenerRegistrationRequest - setURI()");
+		String oauthUri = null;
+		if (exist) {
+			//Si existia
+			try {
+				oauthUri = new URIBuilder()
+						.setScheme(Constants.SCHEME)
+						.setHost(Constants.HOST)
+						.setPort(Constants.PORT)
+						.setPath("/" + Constants.PATH_APPLICATION + "/" + Constants.PATH_ALTAENAPI + "/" + Constants.PATH_CONFIRMATION)
+						.setParameter(Constants.PARAMETER_EXIST, "true").build().toASCIIString();
+			} catch (URISyntaxException e) {
+				/*
+				 * logger.debug("Ha ocurrido un error al dar de alta la aplicación en la API: "
+				 * + e); Activar cuando dispongamos de logger
+				 */
+				e.printStackTrace();
+			}
+		} else {
+			//Si no existia
+			try {
+				oauthUri = new URIBuilder()
+						.setScheme(Constants.SCHEME)
+						.setHost(Constants.HOST)
+						.setPort(Constants.PORT)
+						.setPath("/" + Constants.PATH_APPLICATION + "/" + Constants.PATH_ALTAENAPI + "/" + Constants.PATH_CONFIRMATION)
+						.setParameter(Constants.PARAMETER_EXIST, "false").build().toASCIIString();
+			} catch (URISyntaxException e) {
+				/*
+				 * logger.debug("Ha ocurrido un error al dar de alta la aplicación en la API: "
+				 * + e); Activar cuando dispongamos de logger
+				 */
+				e.printStackTrace();
+			}
+		}
+		
+		return oauthUri;
 	}
 
 }
