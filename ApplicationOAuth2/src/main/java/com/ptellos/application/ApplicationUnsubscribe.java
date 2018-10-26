@@ -32,8 +32,16 @@ public class ApplicationUnsubscribe extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("ApplicationUnsubscribe - doGet()");
-		
+		response.getWriter().print("ERROR: En esta pagina no se puede hacer un HTTP GET");
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		System.out.println("ApplicationUnsubscribe - doPost()");		
 		String path = request.getRequestURI();
 		if (path.equals("/ApplicationOAuth2/AltaEnAPI")) {
 			String oauthUri = "";
@@ -58,18 +66,6 @@ public class ApplicationUnsubscribe extends HttpServlet {
 		} else {
 			
 		}
-		
-		
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		System.out.println("ApplicationUnsubscribe - doPost()");
-		response.getWriter().print("ERROR: En esta pagina no se puede hacer un HTTP POST");
 	}
 
 }

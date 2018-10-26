@@ -37,6 +37,27 @@ public class ApplicationRegistering extends HttpServlet {
 		System.out.println("ApplicationRegistering - doGet()");
 		
 		String path = request.getRequestURI();
+		if(path.equals("/ApplicationOAuth2/AltaEnAPI/Confirmation")) {
+			//response.sendRedirect("http://localhost:8080//ApplicationOAuth2/altaEnAPI");
+			String exist = URLDecoder.decode(request.getParameter("exist"), "UTF-8");
+			if (exist != null) {
+				request.setAttribute("exist", exist);
+				request.getRequestDispatcher("/altaEnAPI.jsp").forward(request, response); 
+			} 
+		} else {
+			//Este será el caso NO se puede dar
+		}
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {		
+		System.out.println("ApplicationRegistering - doPost()");
+		
+		String path = request.getRequestURI();
 		System.out.println("El path es: " + path);
 		if (path.equals("/ApplicationOAuth2/AltaEnAPI")) {
 			String oauthUri = "";
@@ -59,24 +80,6 @@ public class ApplicationRegistering extends HttpServlet {
 				e.printStackTrace();
 			}
 			response.sendRedirect(oauthUri);
-		} else if(path.equals("/ApplicationOAuth2/AltaEnAPI/Confirmation")) {
-			//response.sendRedirect("http://localhost:8080//ApplicationOAuth2/altaEnAPI");
-			String exist = URLDecoder.decode(request.getParameter("exist"), "UTF-8");
-			if (exist != null) {
-				request.setAttribute("exist", exist);
-				request.getRequestDispatcher("/altaEnAPI.jsp").forward(request, response); 
-			} 
-		} else {
-			//Este será el caso NO se puede dar
 		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		response.getWriter().print("ERROR: En esta pagina no se puede hacer un HTTP POST");
 	}
 }

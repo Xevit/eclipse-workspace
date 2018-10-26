@@ -23,9 +23,11 @@ $(document).ready(function(){
 				console.log("El valor de data.goodFormat es: " + data.goodFormat);
 				if(data.goodFormat){
 					if(!data.isValid){
+						//Usuario incorrecto
 						$('#loginhide').html('El nombre de usuario o contraseña no es correcto');
 						$('#loginhide').slideDown(500);
 					} else {
+						//Usuario correcto
 						window.location.href = "/ApplicationOAuth2";
 					}
 				}

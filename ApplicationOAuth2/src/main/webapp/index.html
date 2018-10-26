@@ -72,20 +72,63 @@
           <div class="col-md-6">
             <h2>Alta en API</h2>
             <p>Para dar de alta esta aplicación en la API de oAuth, por favor, pulse el siguiente botón: </p>
-            <p><a class="btn btn-secondary" href="AltaEnAPI" role="button">AltaEnAPI &raquo;</a></p>
+            <!-- <p><a class="btn btn-secondary" href="AltaEnAPI" role="button">AltaEnAPI &raquo;</a></p> -->
+            <form id="altaApi" style="display: block;">
+	            <button type="submit" class="btn btn-seconday btn-lg" data-toggle="modal" data-target="#altaApiModal">
+					Alta en API
+				</button>
+				<!-- <input type="submit"> -->
+			</form>
           </div>
           <div class="col-md-6">
             <h2>Baja en API</h2>
             <p>Para dar de baja esta aplicación en la API de oAuth, por favor, pulse el siguiente botón: </p>
-            <p><a class="btn btn-secondary" href="BajaEnAPI" role="button">BajaEnAPI &raquo;</a></p>
+            <!-- <p><a class="btn btn-secondary" href="BajaEnAPI" role="button">BajaEnAPI &raquo;</a></p> -->
+            <form id="bajaApi" style="display: block;">
+	            <button type="submit" class="btn btn-seconday btn-lg" data-toggle="modal" data-target="#bajaApiModal">
+					Baja en API
+				</button>
+				<!-- <input type="submit"> -->
+			</form>
           </div>
         </div>
 
-        <hr>
-
       </div> <!-- /container -->
 
+		<div class="modal fade" id="altaApiModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="myModalLabel">Modal Alta en API</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p id="altaEspera"/> 
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal fade" id="bajaApiModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="myModalLabel">Modal Baja en API</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p id="bajaEspera"/>
+					</div>
+				</div>
+			</div>
+		</div>
     </main>
+    
+    
 
     <footer class="container">
       <p>&copy; Pedro Tello - TFG 2018-2019</p>
@@ -96,6 +139,7 @@
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.cookie.js"></script>
+    <script src="js/apiModal.js"></script>
     <script >
     $(window).on('load', function() {
     	  // Handler for .load() called.
