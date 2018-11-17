@@ -57,6 +57,12 @@ public class LoginServlet extends HttpServlet {
 		write(response, map);
 	}
 
+	/**
+	 * Metodo que tramita la petición de vuelta del Ajax correspondiente
+	 * @param response Respuesta HTTP
+	 * @param map Mapa con los clave-valor que hayamos metido.
+	 * @throws IOException
+	 */
 	private void write(HttpServletResponse response, Map<String, Object> map) throws IOException {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

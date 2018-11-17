@@ -2,6 +2,9 @@ package com.ptellos.application;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URLDecoder;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,11 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.http.client.utils.URIBuilder;
 
+import com.google.gson.Gson;
+
 /**
  * Servlet implementation class ApplicationUnsubscribe
  */
 
-@WebServlet("/BajaEnAPI")
+@WebServlet("/BajaEnAPI/*")
 public class ApplicationUnsubscribe extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -32,7 +37,21 @@ public class ApplicationUnsubscribe extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.getWriter().print("ERROR: En esta pagina no se puede hacer un HTTP GET");
+		System.out.println("ApplicationUnsubscribe - doGet()");
+		Map<String, Object> map = new HashMap<String, Object>();
+		String path = request.getRequestURI();
+		if(path.equals("/ApplicationOAuth2/BajaEnAPI/Confirmation")) {
+			//response.sendRedirect("http://localhost:8080//ApplicationOAuth2/altaEnAPI");
+			String exist = URLDecoder.decode(request.getParameter("exist"), "UTF-8");
+			if (exist != null) {
+				map.put("exist", exist);
+				write(response, map);
+				//request.setAttribute("exist", exist);
+				//request.getRequestDispatcher("/altaEnAPI.jsp").forward(request, response); 
+			} 
+		} else {
+			//Este será el caso NO se puede dar
+		}
 	}
 
 	/**
@@ -43,12 +62,15 @@ public class ApplicationUnsubscribe extends HttpServlet {
 			throws ServletException, IOException {
 		System.out.println("ApplicationUnsubscribe - doPost()");		
 		String path = request.getRequestURI();
-		if (path.equals("/ApplicationOAuth2/AltaEnAPI")) {
+		if (path.equals("/ApplicationOAuth2/BajaEnAPI")) {
 			String oauthUri = "";
 
 			// Logear
 			try {
-				oauthUri = new URIBuilder().setScheme(Constants.SCHEME).setHost(Constants.HOST).setPort(Constants.PORT)
+				oauthUri = new URIBuilder()
+						.setScheme(Constants.SCHEME)
+						.setHost(Constants.HOST)
+						.setPort(Constants.PORT)
 						.setPath("/" + Constants.PATH_API + "/" + Constants.PATH_UNSUBSCRIBE)
 						.setParameter(Constants.REDIRECT, Constants.REDIRECT_APPLICATION)
 						// Este parametro debería estar codificado con una clave AES
@@ -61,11 +83,19 @@ public class ApplicationUnsubscribe extends HttpServlet {
 				e.printStackTrace();
 			}
 			response.sendRedirect(oauthUri);
-		} else if(path.equals("/ApplicationOAuth2/AltaEnAPI/Confirmation")) {
-			
-		} else {
-			
-		}
+		} 
+	}
+	
+	/**
+	 * Metodo que tramita la petición de vuelta del Ajax correspondiente
+	 * @param response Respuesta HTTP
+	 * @param map Mapa con los clave-valor que hayamos metido.
+	 * @throws IOException
+	 */
+	private void write(HttpServletResponse response, Map<String, Object> map) throws IOException {
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(new Gson().toJson(map));
 	}
 
 }

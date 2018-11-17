@@ -1,30 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  	<link href="css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="css/jumbotron.css" rel="stylesheet">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/font-awesome.min.css" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="css/jumbotron.css" rel="stylesheet">
 </head>
 <body>
-	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-info">
-      <a id="oAuth2" class="navbar-brand" href="#">oAuth2</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
+		<a id="oAuth2" class="navbar-brand" href="#">oAuth2</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarsExampleDefault"
+			aria-controls="navbarsExampleDefault" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
 
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link disabled" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <!--<li class="nav-item">
+		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active"><a class="nav-link disabled"
+					href="#">Home<span class="sr-only">(current)</span></a></li>
+				<!--<li class="nav-item">
             <a class="nav-link" href="#">Link</a>
           </li>
           <li class="nav-item">
             <a class="nav-link disabled" href="#">Disabled</a>
           </li>-->
-          <!--<li class="nav-item dropdown">
+				<!--<li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">
               <a class="dropdown-item" href="#">Action</a>
@@ -32,123 +35,198 @@
               <a class="dropdown-item" href="#">Something else here</a>
             </div>
           </li>-->
-        </ul>
-        <ul id="login" class="navbar-nav mr-right" >
-          <li class="nav-item active">
-            <a class="nav-link" href="login.jsp">Login or Register</a>
-          </li>
-          <!--<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->
-          <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
-         </ul>
-      </div>
-    </nav>
+			</ul>
+			<ul id="login" class="navbar-nav mr-right">
+				<li class="nav-item active"><a class="nav-link"
+					href="login.jsp">Login/Register</a></li>
+				<!--<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->
+				<!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
+			</ul>
+		</div>
+	</nav>
 
-    <main role="main">
+	<!-- <main role="main"> --> <!-- Main jumbotron for a primary marketing message or call to action -->
+	<div class="jumbotron">
+		<div class="container">
+			<h1 class="display-3">Welcome to Pedro Tello - OAuth 2</h1>
+			<p>OAuth 2 is an authorization framework that enables
+				applications to obtain limited access to user accounts on an HTTP
+				service, such as Facebook, GitHub, and DigitalOcean. It works by
+				delegating user authentication to the service that hosts the user
+				account, and authorizing third-party applications to access the user
+				account. OAuth 2 provides authorization flows for web and desktop
+				applications, and mobile devices.</p>
+			<p>
+				<a class="btn btn-primary btn-lg bg-secondary"
+					href="https://oauth.net/2/" role="button">Learn more &raquo;</a>
+			</p>
+		</div>
+	</div>
 
-      <!-- Main jumbotron for a primary marketing message or call to action -->
-      <div class="jumbotron">
-        <div class="container">
-          <h1 class="display-3">Welcome to Pedro Tello - OAuth 2</h1>
-          <p>OAuth 2 is an authorization framework that enables applications to obtain limited access to user accounts on an HTTP service, such as Facebook, GitHub, and DigitalOcean. It works by delegating user authentication to the service that hosts the user account, and authorizing third-party applications to access the user account. OAuth 2 provides authorization flows for web and desktop applications, and mobile devices.</p>
-          <p><a class="btn btn-primary btn-lg bg-secondary" href="https://oauth.net/2/" role="button">Learn more &raquo;</a></p>
-        </div>
-      </div>
+	<div class="container">
+		<!-- Example row of columns -->
+		<!-- <div class="row">
+			<div class="col-md-6">
+				<h2>Hello, World!</h2>
+				<p>Prueba de conexión para el servlet de Hello, World!</p>
+				<p>
+					<a class="btn btn-secondary" href="hello" role="button">Hello,
+						World! &raquo;</a>
+				</p>
+			</div>
+			<div class="col-md-6">
+				<h2>Bye, World!</h2>
+				<p>Prueba de conexión para el servlet de Bye, World!</p>
+				<p>
+					<a class="btn btn-secondary" href="bye" role="button">Bye,
+						World! &raquo;</a>
+				</p>
+			</div>
+		</div> -->
+		<div class="row">
+			<div class="col-md-6">
+				<h2>Alta en API</h2>
+				<p>Para dar de alta esta aplicación en la API de oAuth, por
+					favor, pulse el siguiente botón:</p>
+				<!-- <p><a class="btn btn-secondary" href="AltaEnAPI" role="button">AltaEnAPI &raquo;</a></p> -->
+				<form id="altaApi" style="display: block;">
+					<button type="submit" class="btn btn-seconday btn-lg"
+						data-toggle="modal" data-target="#altaApiModal">Alta en
+						API</button>
+					<!-- <input type="submit"> -->
+				</form>
+			</div>
+			<div class="col-md-6">
+				<h2>Baja en API</h2>
+				<p>Para dar de baja esta aplicación en la API de oAuth, por
+					favor, pulse el siguiente botón:</p>
+				<!-- <p><a class="btn btn-secondary" href="BajaEnAPI" role="button">BajaEnAPI &raquo;</a></p> -->
+				<form id="bajaApi" style="display: block;">
+					<button type="submit" class="btn btn-seconday btn-lg"
+						data-toggle="modal" data-target="#bajaApiModal">Baja en
+						API</button>
+					<!-- <input type="submit"> -->
+				</form>
+			</div>
+		</div>
 
-      <div class="container">
-        <!-- Example row of columns -->
-        <div class="row">
-          <div class="col-md-6">
-            <h2>Hello, World!</h2>
-            <p>Prueba de conexión para el servlet de Hello, World!</p>
-            <p><a class="btn btn-secondary" href="hello" role="button">Hello, World! &raquo;</a></p>
-          </div>
-          <div class="col-md-6">
-            <h2>Bye, World!</h2>
-            <p>Prueba de conexión para el servlet de Bye, World! </p>
-            <p><a class="btn btn-secondary" href="bye" role="button">Bye, World! &raquo;</a></p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <h2>Alta en API</h2>
-            <p>Para dar de alta esta aplicación en la API de oAuth, por favor, pulse el siguiente botón: </p>
-            <!-- <p><a class="btn btn-secondary" href="AltaEnAPI" role="button">AltaEnAPI &raquo;</a></p> -->
-            <form id="altaApi" style="display: block;">
-	            <button type="submit" class="btn btn-seconday btn-lg" data-toggle="modal" data-target="#altaApiModal">
-					Alta en API
-				</button>
-				<!-- <input type="submit"> -->
-			</form>
-          </div>
-          <div class="col-md-6">
-            <h2>Baja en API</h2>
-            <p>Para dar de baja esta aplicación en la API de oAuth, por favor, pulse el siguiente botón: </p>
-            <!-- <p><a class="btn btn-secondary" href="BajaEnAPI" role="button">BajaEnAPI &raquo;</a></p> -->
-            <form id="bajaApi" style="display: block;">
-	            <button type="submit" class="btn btn-seconday btn-lg" data-toggle="modal" data-target="#bajaApiModal">
-					Baja en API
-				</button>
-				<!-- <input type="submit"> -->
-			</form>
-          </div>
-        </div>
+	</div>
+	<!-- /container -->
 
-      </div> <!-- /container -->
-
-		<div class="modal fade" id="altaApiModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h4 class="modal-title" id="myModalLabel">Modal Alta en API</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<p id="altaEspera"/> 
-					</div>
+	<div class="modal fade" id="altaApiModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel">Información:</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p id="altaEspera" />
+					<p id="altaResponseKO" style="color: orange" />
+					<p id="altaResponseOK" style="color: green" />
 				</div>
 			</div>
 		</div>
+	</div>
+
+	<div class="modal fade" id="bajaApiModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel">Información:</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p id="bajaEspera" />
+					<p id="bajaResponseKO" style="color: red" />
+					<p id="bajaResponseOK" style="color: green" />
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- </main> -->
+
+	<!-- Footer -->
+	<footer class="page-footer font-small cyan darken-3">
+
+		<!-- Footer Elements -->
+		<div class="container">
+
+			<!-- Grid row-->
+			<div class="row">
+
+				<!-- Grid column -->
+				<div class="col-md-12 py-5 text-center">
+					<div class="mb-5 flex-center">
+
+						<!-- Facebook -->
+						<a class="fb-ic"> <i
+							class="fa fa-facebook fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+						</a>
+						<!-- Twitter -->
+						<a class="tw-ic" href="http://twitter.com/ptellos"> <i
+							class="fa fa-twitter fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+						</a>
+						<!-- Google +-->
+						<a class="gplus-ic"> <i
+							class="fa fa-google-plus fa-lg white-text mr-md-5 mr-3 fa-2x">
+						</i>
+						</a>
+						<!--Linkedin -->
+						<a class="li-ic" href='https://www.linkedin.com/in/pedro-tello-sánchez-42284180/'> <i
+							class="fa fa-linkedin fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+						</a>
+						<!--Instagram-->
+						<a class="ins-ic" href="https://www.instagram.com/ptellos"> <i
+							class="fa fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x"></i>
+						</a>
+						<!--Pinterest-->
+						<a class="pin-ic"> <i
+							class="fa fa-pinterest fa-lg white-text fa-2x"> </i>
+						</a>
+					</div>
+				</div>
+				<!-- Grid column -->
+
+			</div>
+			<!-- Grid row-->
+			<!-- Copyright -->
+			<div id="footer-copy-right" class="footer-copyright text-center py-3">
+				© 2018 Copyright: <a href="mailto:ptellos@gmail.com"> oAuth 2</a>
+			</div>
+			<!-- Copyright -->
+		</div>
+		<!-- Footer Elements -->
+
 		
-		<div class="modal fade" id="bajaApiModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h4 class="modal-title" id="myModalLabel">Modal Baja en API</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<p id="bajaEspera"/>
-					</div>
-				</div>
-			</div>
-		</div>
-    </main>
-    
-    
 
-    <footer class="container">
-      <p>&copy; Pedro Tello - TFG 2018-2019</p>
-    </footer>
+	</footer>
+	<!-- Footer -->
 
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="js/jquery-3.3.1.slim.min.js"><\/script>')</script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.cookie.js"></script>
-    <script src="js/apiModal.js"></script>
-    <script >
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+		crossorigin="anonymous"></script>
+	<script>window.jQuery || document.write('<script src="js/jquery-3.3.1.slim.min.js"><\/script>')</script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.cookie.js"></script>
+	<script src="js/apiModal.js"></script>
+	<script>
     $(window).on('load', function() {
     	  // Handler for .load() called.
     	if (typeof $.cookie("profileUrl") !== 'undefined'){
 	    	var cookieProfileName = $.cookie("profileUrl");
 	    	$("#login").replaceWith(
 	    			'<ul id="logout" class="navbar-nav mr-right" >' +
-	    				'<li class="nav-item"></li>' + 
-	    					'<a class="nav-link disabled">' + cookieProfileName + '</a>' +
+	    				'<li class="nav-item active">' + 
+	    					'<a class="nav-link">' + cookieProfileName + '</a>' +
 	    	    		'<li class="nav-item active">' + 
 	    	    			'<a class="nav-link" onclick="myLogout()" href="/ApplicationOAuth2">Logout</a>' + 
 	    	    		"</li>" + 

@@ -25,6 +25,8 @@ public final class Constants {
 	
 	public static final String PATH_ALTAENAPI  = "AltaEnAPI";
 	
+	public static final String PATH_BAJAENAPI  = "BajaEnAPI";
+	
 	public static final String PATH_CONFIRMATION = "Confirmation";
 	
 	public static final String PARAMETER_EXIST  = "exist";

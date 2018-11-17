@@ -12,7 +12,7 @@
 		
 	</head>
 <body>
-	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-info">
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top">
       <a id="oAuth2" class="navbar-brand" href="/ApplicationOAuth2">oAuth2</a>
     </nav>
     <main role="main">

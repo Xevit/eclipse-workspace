@@ -3,6 +3,8 @@ package com.ptellos.application;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.http.client.utils.URIBuilder;
+
+import com.google.gson.Gson;
 
 /**
  * Servlet implementation class ApplicationRegister
@@ -35,14 +39,16 @@ public class ApplicationRegistering extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("ApplicationRegistering - doGet()");
-		
+		Map<String, Object> map = new HashMap<String, Object>();
 		String path = request.getRequestURI();
 		if(path.equals("/ApplicationOAuth2/AltaEnAPI/Confirmation")) {
 			//response.sendRedirect("http://localhost:8080//ApplicationOAuth2/altaEnAPI");
 			String exist = URLDecoder.decode(request.getParameter("exist"), "UTF-8");
 			if (exist != null) {
-				request.setAttribute("exist", exist);
-				request.getRequestDispatcher("/altaEnAPI.jsp").forward(request, response); 
+				map.put("exist", exist);
+				write(response, map);
+				//request.setAttribute("exist", exist);
+				//request.getRequestDispatcher("/altaEnAPI.jsp").forward(request, response); 
 			} 
 		} else {
 			//Este será el caso NO se puede dar
@@ -81,5 +87,17 @@ public class ApplicationRegistering extends HttpServlet {
 			}
 			response.sendRedirect(oauthUri);
 		}
+	}
+	
+	/**
+	 * Metodo que tramita la petición de vuelta del Ajax correspondiente
+	 * @param response Respuesta HTTP
+	 * @param map Mapa con los clave-valor que hayamos metido.
+	 * @throws IOException
+	 */
+	private void write(HttpServletResponse response, Map<String, Object> map) throws IOException {
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(new Gson().toJson(map));
 	}
 }
