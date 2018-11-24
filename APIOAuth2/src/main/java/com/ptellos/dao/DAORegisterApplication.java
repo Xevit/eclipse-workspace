@@ -44,7 +44,7 @@ public class DAORegisterApplication {
 		return isCorrect;
 	}
 
-	public static void registerApplication(String url, String key) throws Exception {
+	public static void registerApplication(String url, String key, String clientId, String clientSecret) throws Exception {
 		Connection c = null;
 		Statement stmt = null;
 		try {
@@ -54,9 +54,11 @@ public class DAORegisterApplication {
 			c.setAutoCommit(false);
 			// TODO: Esto hacerlo en una funcion a parte
 			PreparedStatement st = c.prepareStatement(
-					"INSERT INTO apioa2_application_request(url_redirect, code_secret) VALUES (?, ?);");
+					"INSERT INTO apioa2_application_request(url_redirect, code_secret, client_id, client_secret) VALUES (?, ?, ?, ?);");
 			st.setString(1, url);
 			st.setString(2, key);
+			st.setString(3, clientId);
+			st.setString(4, clientSecret);
 			st.executeUpdate();
 			c.commit();
 			// Cerramos todos los hilos abiertos

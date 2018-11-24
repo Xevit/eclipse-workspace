@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.http.client.utils.URIBuilder;
 
-import com.ptellos.api.Constants;
 import com.ptellos.dao.DAORegisterApplication;
 
 /**
@@ -48,7 +47,13 @@ public class ListenerRegistrationRequest extends HttpServlet {
 				String oauthUri = setURI(exist);
 				response.sendRedirect(oauthUri);
 			} else {
-				DAORegisterApplication.registerApplication(application, secretKey);
+				/*Al no existir generamos un client_id y un client_secret
+				 * clientId: 		Nombre identificador de la aplicación.
+				 * clientSecret: 	Password identificador de la aplicación.
+				 */
+				String clientId = new RandomStringGenerator().nextString();
+				String clientSecret = new RandomStringGenerator(23).nextString();
+				DAORegisterApplication.registerApplication(application, secretKey, clientId, clientSecret);
 				exist = false;
 				String oauthUri = setURI(exist);
 				response.sendRedirect(oauthUri);
