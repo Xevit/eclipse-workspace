@@ -83,30 +83,32 @@
 				</p>
 			</div>
 		</div> -->
-		<div class="row">
-			<div class="col-md-6">
-				<h2>Alta en API</h2>
-				<p>Para dar de alta esta aplicación en la API de oAuth, por
-					favor, pulse el siguiente botón:</p>
-				<!-- <p><a class="btn btn-secondary" href="AltaEnAPI" role="button">AltaEnAPI &raquo;</a></p> -->
-				<form id="altaApi" style="display: block;">
-					<button type="submit" class="btn btn-seconday btn-lg"
-						data-toggle="modal" data-target="#altaApiModal">Alta en
-						API</button>
-					<!-- <input type="submit"> -->
-				</form>
-			</div>
-			<div class="col-md-6">
-				<h2>Baja en API</h2>
-				<p>Para dar de baja esta aplicación en la API de oAuth, por
-					favor, pulse el siguiente botón:</p>
-				<!-- <p><a class="btn btn-secondary" href="BajaEnAPI" role="button">BajaEnAPI &raquo;</a></p> -->
-				<form id="bajaApi" style="display: block;">
-					<button type="submit" class="btn btn-seconday btn-lg"
-						data-toggle="modal" data-target="#bajaApiModal">Baja en
-						API</button>
-					<!-- <input type="submit"> -->
-				</form>
+		<div id="adminAltaAPI" style="display:none">
+			<div class="row">
+				<div class="col-md-6">
+					<h2>Alta en API</h2>
+					<p>Para dar de alta esta aplicación en la API de oAuth, por
+						favor, pulse el siguiente botón:</p>
+					<!-- <p><a class="btn btn-secondary" href="AltaEnAPI" role="button">AltaEnAPI &raquo;</a></p> -->
+					<form id="altaApi" style="display: block;">
+						<button type="submit" class="btn btn-seconday btn-lg"
+							data-toggle="modal" data-target="#altaApiModal">Alta en
+							API</button>
+						<!-- <input type="submit"> -->
+					</form>
+				</div>
+				<div class="col-md-6">
+					<h2>Baja en API</h2>
+					<p>Para dar de baja esta aplicación en la API de oAuth, por
+						favor, pulse el siguiente botón:</p>
+					<!-- <p><a class="btn btn-secondary" href="BajaEnAPI" role="button">BajaEnAPI &raquo;</a></p> -->
+					<form id="bajaApi" style="display: block;">
+						<button type="submit" class="btn btn-seconday btn-lg"
+							data-toggle="modal" data-target="#bajaApiModal">Baja en
+							API</button>
+						<!-- <input type="submit"> -->
+					</form>
+				</div>
 			</div>
 		</div>
 
@@ -234,6 +236,7 @@
 	<script src="js/jquery.cookie.js"></script>
 	<script src="js/apiModal.js"></script>
 	<script>
+	//Funcion que gestiona el perfil de login/logout
     $(window).on('load', function() {
     	  // Handler for .load() called.
     	if (typeof $.cookie("profileUrl") !== 'undefined'){
@@ -260,6 +263,7 @@
         }
 	});
 
+    //Función que realiza el borrado de la cookie de usuario
 	function myLogout(){
 		var delete_cookie = function(name) {
 		    document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
@@ -267,8 +271,18 @@
 		delete_cookie('profileUrl');
 	};
 
+	//Cuando se cierre el modal del aviso de Logout actualizaremos la página
 	$('#logoutModal').on('hidden.bs.modal', function () {
 		location.reload();
+	});
+
+	//Si el usuario es "admin" se desplegara la administración del alta y baja de nuestra application en la API.
+	$(document).ready(function(){
+		if($.cookie("profileUrl") == "admin"){
+			document.getElementById("adminAltaAPI").style.display = "block";
+		} else{
+			document.getElementById("adminAltaAPI").style.display = "none";
+		}
 	});
     </script>
 </body>
