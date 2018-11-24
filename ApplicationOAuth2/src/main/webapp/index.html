@@ -152,6 +152,21 @@
 			</div>
 		</div>
 	</div>
+	<!-- Modal para el deslogueo -->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel">Se ha deslogueado correctamente.</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<!-- </main> -->
 
 	<!-- Footer -->
@@ -228,7 +243,8 @@
 	    				'<li class="nav-item active">' + 
 	    					'<a class="nav-link">' + cookieProfileName + '</a>' +
 	    	    		'<li class="nav-item active">' + 
-	    	    			'<a class="nav-link" onclick="myLogout()" href="/ApplicationOAuth2">Logout</a>' + 
+							/*'<a class="nav-link" onclick="myLogout()" href="/ApplicationOAuth2">Logout</a>' +*/
+							'<a class="nav-link" onclick="myLogout()" href="/ApplicationOAuth2" data-toggle="modal" data-target="#logoutModal" ">Logout</a>' + 
 	    	    		"</li>" + 
 	    	    	'</ul>');
 	    	/* var str = document.getElementById("login").innerHTML; 
@@ -250,6 +266,10 @@
 		};
 		delete_cookie('profileUrl');
 	};
+
+	$('#logoutModal').on('hidden.bs.modal', function () {
+		location.reload();
+	});
     </script>
 </body>
 </html>
