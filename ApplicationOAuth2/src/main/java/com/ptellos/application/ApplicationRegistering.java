@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.http.client.utils.URIBuilder;
 
 import com.google.gson.Gson;
+import com.ptellos.dao.DAORegisterApplication;
 
 /**
  * Servlet implementation class ApplicationRegister
@@ -41,17 +42,37 @@ public class ApplicationRegistering extends HttpServlet {
 		System.out.println("ApplicationRegistering - doGet()");
 		Map<String, Object> map = new HashMap<String, Object>();
 		String path = request.getRequestURI();
-		if(path.equals("/ApplicationOAuth2/AltaEnAPI/Confirmation")) {
-			//response.sendRedirect("http://localhost:8080//ApplicationOAuth2/altaEnAPI");
-			String exist = URLDecoder.decode(request.getParameter("exist"), "UTF-8");
+		// if(path.equals("/ApplicationOAuth2/AltaEnAPI/Confirmation")) {
+		if (path.equals("/" + Constants.PATH_APPLICATION + "/" + Constants.PATH_ALTAENAPI + "/"
+				+ Constants.PATH_CONFIRMATION)) {
+			// response.sendRedirect("http://localhost:8080//ApplicationOAuth2/altaEnAPI");
+			String exist = URLDecoder.decode(request.getParameter(Constants.PARAMETER_EXIST), "UTF-8");
+
 			if (exist != null) {
-				map.put("exist", exist);
-				write(response, map);
-				//request.setAttribute("exist", exist);
-				//request.getRequestDispatcher("/altaEnAPI.jsp").forward(request, response); 
-			} 
+				if (exist.equals("true")) {
+					map.put("exist", exist);
+					write(response, map);
+					// request.setAttribute("exist", exist);
+					// request.getRequestDispatcher("/altaEnAPI.jsp").forward(request, response);
+				} else if (exist.equals("false")) {
+					String clientId = URLDecoder.decode(request.getParameter(Constants.CLIENT_ID), "UTF-8");
+					String clientSecret = URLDecoder.decode(request.getParameter(Constants.CLIENT_SECRET), "UTF-8");
+					String url_redirect = URLDecoder.decode(request.getParameter(Constants.REDIRECT), "UTF-8");
+					try {
+						DAORegisterApplication.registerApplication(url_redirect, Constants.CODE_SECRET_VALUE, clientId,
+								clientSecret);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+
+					map.put("exist", exist);
+					write(response, map);
+					// request.setAttribute("exist", exist);
+					// request.getRequestDispatcher("/altaEnAPI.jsp").forward(request, response);
+				}
+			}
 		} else {
-			//Este será el caso NO se puede dar
+			// Este será el caso NO se puede dar
 		}
 	}
 
@@ -60,20 +81,20 @@ public class ApplicationRegistering extends HttpServlet {
 	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {		
+			throws ServletException, IOException {
 		System.out.println("ApplicationRegistering - doPost()");
-		
+
 		String path = request.getRequestURI();
 		System.out.println("El path es: " + path);
-		if (path.equals("/ApplicationOAuth2/AltaEnAPI")) {
+		// if (path.equals("/ApplicationOAuth2/AltaEnAPI")) {
+		if (path.equals("/" + Constants.PATH_APPLICATION + "/" + Constants.PATH_ALTAENAPI)) {
 			String oauthUri = "";
 			// Logear
 			System.out.println("Entramos normal");
 			try {
-				oauthUri = new URIBuilder()
-						.setScheme(Constants.SCHEME)
-						.setHost(Constants.HOST)
-						.setPort(Constants.PORT)
+				// oauthUri =
+				// http://localhost:8080/APIOAuth2/Register?url_redirect=http://localhost:8080/ApplicationOAuth2&code_secret=NDUwODM5Nzg=
+				oauthUri = new URIBuilder().setScheme(Constants.SCHEME).setHost(Constants.HOST).setPort(Constants.PORT)
 						.setPath("/" + Constants.PATH_API + "/" + Constants.PATH_REGISTER)
 						.setParameter(Constants.REDIRECT, Constants.REDIRECT_APPLICATION)
 						// Este parametro debería estar codificado con una clave AES
@@ -88,11 +109,14 @@ public class ApplicationRegistering extends HttpServlet {
 			response.sendRedirect(oauthUri);
 		}
 	}
-	
+
 	/**
 	 * Metodo que tramita la petición de vuelta del Ajax correspondiente
-	 * @param response Respuesta HTTP
-	 * @param map Mapa con los clave-valor que hayamos metido.
+	 * 
+	 * @param response
+	 *            Respuesta HTTP
+	 * @param map
+	 *            Mapa con los clave-valor que hayamos metido.
 	 * @throws IOException
 	 */
 	private void write(HttpServletResponse response, Map<String, Object> map) throws IOException {

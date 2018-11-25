@@ -21,18 +21,20 @@ import com.ptellos.dao.DAOUnsubscribeApplication;
 @WebServlet("/Unsubscribe")
 public class ListenerUnsubscribeRequest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ListenerUnsubscribeRequest() {
-        super();
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public ListenerUnsubscribeRequest() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		System.out.println("ListenerUnsubscribeRequest - doGet()");
 		String application = URLDecoder.decode(request.getParameter("url_redirect"), "UTF-8");
 		String secretKey = URLDecoder.decode(request.getParameter("code_secret"), "UTF-8");
@@ -40,7 +42,7 @@ public class ListenerUnsubscribeRequest extends HttpServlet {
 		boolean exist = true;
 		try {
 			if (DAOUnsubscribeApplication.existApp(application, secretKey)) {
-				//Si existe la desuscribimos
+				// Si existe la desuscribimos
 				DAOUnsubscribeApplication.unsubscribeApplication(application, secretKey);
 				String oauthUri = setURI(exist);
 				response.sendRedirect(oauthUri);
@@ -55,25 +57,30 @@ public class ListenerUnsubscribeRequest extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		System.out.println("ListenerUnsubscribeRequest - doPost()");
 		doGet(request, response);
 	}
-	
+
 	private String setURI(boolean exist) {
 		System.out.println("ListenerUnsubscribeRequest - setURI()");
 		String oauthUri = null;
 		if (exist) {
-			//Si existia
+			// Si existia
 			try {
-				oauthUri = new URIBuilder()
-						.setScheme(Constants.SCHEME)
-						.setHost(Constants.HOST)
-						.setPort(Constants.PORT)
-						.setPath("/" + Constants.PATH_APPLICATION + "/" + Constants.PATH_BAJAENAPI + "/" + Constants.PATH_CONFIRMATION)
-						.setParameter(Constants.PARAMETER_EXIST, "true").build().toASCIIString();
+				// oauthUri =
+				// http://localhost:8080/ApplicationOAuth2/BajaEnAPI/Confirmation?exist=true&url_redirect=http://localhost:8080/APIOAuth2
+				String url_redirect = Constants.SCHEME + "://" + Constants.HOST + ":" + Constants.PORT + "/"
+						+ Constants.PATH_API;
+				oauthUri = new URIBuilder().setScheme(Constants.SCHEME).setHost(Constants.HOST).setPort(Constants.PORT)
+						.setPath("/" + Constants.PATH_APPLICATION + "/" + Constants.PATH_BAJAENAPI + "/"
+								+ Constants.PATH_CONFIRMATION)
+						.setParameter(Constants.PARAMETER_EXIST, "true").setParameter(Constants.REDIRECT, url_redirect)
+						.build().toASCIIString();
 			} catch (URISyntaxException e) {
 				/*
 				 * logger.debug("Ha ocurrido un error al dar de alta la aplicación en la API: "
@@ -82,13 +89,13 @@ public class ListenerUnsubscribeRequest extends HttpServlet {
 				e.printStackTrace();
 			}
 		} else {
-			//Si no existia
+			// Si no existia
 			try {
-				oauthUri = new URIBuilder()
-						.setScheme(Constants.SCHEME)
-						.setHost(Constants.HOST)
-						.setPort(Constants.PORT)
-						.setPath("/" + Constants.PATH_APPLICATION + "/" + Constants.PATH_BAJAENAPI + "/" + Constants.PATH_CONFIRMATION)
+				// oauthUri =
+				// http://localhost:8080/ApplicationOAuth2/BajaEnAPI/Confirmation?exist=false
+				oauthUri = new URIBuilder().setScheme(Constants.SCHEME).setHost(Constants.HOST).setPort(Constants.PORT)
+						.setPath("/" + Constants.PATH_APPLICATION + "/" + Constants.PATH_BAJAENAPI + "/"
+								+ Constants.PATH_CONFIRMATION)
 						.setParameter(Constants.PARAMETER_EXIST, "false").build().toASCIIString();
 			} catch (URISyntaxException e) {
 				/*
@@ -98,7 +105,7 @@ public class ListenerUnsubscribeRequest extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return oauthUri;
 	}
 

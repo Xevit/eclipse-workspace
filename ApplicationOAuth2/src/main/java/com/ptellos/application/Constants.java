@@ -26,4 +26,16 @@ public final class Constants {
 	public static final String PATH_REGISTER  = "Register";
 	
 	public static final String PATH_UNSUBSCRIBE = "Unsubscribe";
+	
+	public static final String PATH_ALTAENAPI  = "AltaEnAPI";
+	
+	public static final String PATH_BAJAENAPI  = "BajaEnAPI";
+	
+	public static final String PATH_CONFIRMATION = "Confirmation";
+	
+	public static final String PARAMETER_EXIST  = "exist";
+	
+	public static final String CLIENT_ID = "clientId";
+	
+	public static final String CLIENT_SECRET = "clientSecret";
 }

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.http.client.utils.URIBuilder;
 
 import com.google.gson.Gson;
+import com.ptellos.dao.DAOUnsubscribeApplication;
 
 /**
  * Servlet implementation class ApplicationUnsubscribe
@@ -40,17 +41,27 @@ public class ApplicationUnsubscribe extends HttpServlet {
 		System.out.println("ApplicationUnsubscribe - doGet()");
 		Map<String, Object> map = new HashMap<String, Object>();
 		String path = request.getRequestURI();
-		if(path.equals("/ApplicationOAuth2/BajaEnAPI/Confirmation")) {
-			//response.sendRedirect("http://localhost:8080//ApplicationOAuth2/altaEnAPI");
+		if (path.equals("/ApplicationOAuth2/BajaEnAPI/Confirmation")) {
+			// response.sendRedirect("http://localhost:8080//ApplicationOAuth2/altaEnAPI");
 			String exist = URLDecoder.decode(request.getParameter("exist"), "UTF-8");
 			if (exist != null) {
-				map.put("exist", exist);
-				write(response, map);
-				//request.setAttribute("exist", exist);
-				//request.getRequestDispatcher("/altaEnAPI.jsp").forward(request, response); 
-			} 
+				if (exist.equals("true")) {
+					String url_redirect = URLDecoder.decode(request.getParameter("url_redirect"), "UTF-8");
+					try {
+						DAOUnsubscribeApplication.unsubscribeApplication(url_redirect);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+
+					map.put("exist", exist);
+					write(response, map);
+				} else if (exist.equals("false")) {
+					map.put("exist", exist);
+					write(response, map);
+				}
+			}
 		} else {
-			//Este será el caso NO se puede dar
+			// Este será el caso NO se puede dar
 		}
 	}
 
@@ -60,17 +71,16 @@ public class ApplicationUnsubscribe extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("ApplicationUnsubscribe - doPost()");		
+		System.out.println("ApplicationUnsubscribe - doPost()");
 		String path = request.getRequestURI();
 		if (path.equals("/ApplicationOAuth2/BajaEnAPI")) {
 			String oauthUri = "";
 
 			// Logear
 			try {
-				oauthUri = new URIBuilder()
-						.setScheme(Constants.SCHEME)
-						.setHost(Constants.HOST)
-						.setPort(Constants.PORT)
+				// oauthUri =
+				// http://localhost:8080/APIOAuth2/Unsubscribe?url_redirect=http://localhost:8080/ApplicationOAuth2&code_secret=NDUwODM5Nzg=
+				oauthUri = new URIBuilder().setScheme(Constants.SCHEME).setHost(Constants.HOST).setPort(Constants.PORT)
 						.setPath("/" + Constants.PATH_API + "/" + Constants.PATH_UNSUBSCRIBE)
 						.setParameter(Constants.REDIRECT, Constants.REDIRECT_APPLICATION)
 						// Este parametro debería estar codificado con una clave AES
@@ -83,13 +93,16 @@ public class ApplicationUnsubscribe extends HttpServlet {
 				e.printStackTrace();
 			}
 			response.sendRedirect(oauthUri);
-		} 
+		}
 	}
-	
+
 	/**
 	 * Metodo que tramita la petición de vuelta del Ajax correspondiente
-	 * @param response Respuesta HTTP
-	 * @param map Mapa con los clave-valor que hayamos metido.
+	 * 
+	 * @param response
+	 *            Respuesta HTTP
+	 * @param map
+	 *            Mapa con los clave-valor que hayamos metido.
 	 * @throws IOException
 	 */
 	private void write(HttpServletResponse response, Map<String, Object> map) throws IOException {
