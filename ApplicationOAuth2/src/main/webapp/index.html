@@ -21,20 +21,6 @@
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active"><a class="nav-link disabled"
 					href="#">Home<span class="sr-only">(current)</span></a></li>
-				<!--<li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
-          </li>-->
-				<!--<li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-            <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </li>-->
 			</ul>
 			<ul id="login" class="navbar-nav mr-right">
 				<li class="nav-item active"><a class="nav-link"
@@ -45,7 +31,8 @@
 		</div>
 	</nav>
 
-	<!-- <main role="main"> --> <!-- Main jumbotron for a primary marketing message or call to action -->
+	<!-- <main role="main"> -->
+	<!-- Main jumbotron for a primary marketing message or call to action -->
 	<div class="jumbotron">
 		<div class="container">
 			<h1 class="display-3">Welcome to Pedro Tello - OAuth 2</h1>
@@ -83,7 +70,30 @@
 				</p>
 			</div>
 		</div> -->
-		<div id="adminAltaAPI" style="display:none">
+		<div id="oAuthorizationAPI" style="display: none">
+			<div class="row">
+				<div class="col-md-6">
+					<h2>Grant authorization</h2>
+					<p>Conceder autorización de recursos</p>
+					<form id="grantAuthorizatiAPI" style="display: block;">
+						<button type="submit" class="btn btn-seconday btn-lg"
+							data-toggle="modal" data-target="#grantApiModal">Grant</button>
+						<!-- <input type="submit"> -->
+					</form>
+				</div>
+				<div class="col-md-6">
+					<h2>Refuse authorization</h2>
+					<p>Denegar autorización de recursos</p>
+					<!-- <p><a class="btn btn-secondary" href="BajaEnAPI" role="button">BajaEnAPI &raquo;</a></p> -->
+					<form id="refuseAuthorizatiAPI" style="display: block;">
+						<button type="submit" class="btn btn-seconday btn-lg"
+							data-toggle="modal" data-target="#refuseApiModal">Refuse</button>
+						<!-- <input type="submit"> -->
+					</form>
+				</div>
+			</div>
+		</div>
+		<div id="adminAltaAPI" style="display: none">
 			<div class="row">
 				<div class="col-md-6">
 					<h2>Alta en API</h2>
@@ -160,7 +170,8 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title" id="myModalLabel">Se ha deslogueado correctamente.</h4>
+					<h4 class="modal-title" id="myModalLabel">Se ha deslogueado
+						correctamente.</h4>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -198,8 +209,10 @@
 						</i>
 						</a>
 						<!--Linkedin -->
-						<a class="li-ic" href='https://www.linkedin.com/in/pedro-tello-sánchez-42284180/'> <i
-							class="fa fa-linkedin fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+						<a class="li-ic"
+							href='https://www.linkedin.com/in/pedro-tello-sánchez-42284180/'>
+							<i class="fa fa-linkedin fa-lg white-text mr-md-5 mr-3 fa-2x">
+						</i>
 						</a>
 						<!--Instagram-->
 						<a class="ins-ic" href="https://www.instagram.com/ptellos"> <i
@@ -223,7 +236,7 @@
 		</div>
 		<!-- Footer Elements -->
 
-		
+
 
 	</footer>
 	<!-- Footer -->
@@ -283,6 +296,11 @@
 		} else{
 			document.getElementById("adminAltaAPI").style.display = "none";
 		}
+		if(typeof $.cookie("profileUrl") !== 'undefined'){
+			document.getElementById("oAuthorizationAPI").style.display = "block";
+		} else {
+			document.getElementById("oAuthorizationAPI").style.display = "none";
+		}		
 	});
     </script>
 </body>
