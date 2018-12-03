@@ -30,12 +30,13 @@
 <fullyQualifiedTypeName name="java.io.BufferedReader"/>
 <fullyQualifiedTypeName name="com.ptellos.application.Constants"/>
 <fullyQualifiedTypeName name="org.apache.http.client.utils.URIUtils"/>
-<fullyQualifiedTypeName name="com.ptellos.dao.DAORegisterApplication"/>
 <fullyQualifiedTypeName name="java.net.URLDecoder"/>
-<fullyQualifiedTypeName name="com.ptellos.dao.DAOUnsubscribeApplication"/>
 <fullyQualifiedTypeName name="java.util.Random"/>
 <fullyQualifiedTypeName name="java.security.SecureRandom"/>
 <fullyQualifiedTypeName name="java.util.Objects"/>
 <fullyQualifiedTypeName name="java.util.Locale"/>
 <fullyQualifiedTypeName name="com.ptellos.api.RandomStringGenerator"/>
+<fullyQualifiedTypeName name="com.ptellos.dao.DAORegisterApplication"/>
+<fullyQualifiedTypeName name="com.ptellos.dao.DAOUnsubscribeApplication"/>
+<fullyQualifiedTypeName name="com.ptellos.api.Constants"/>
 </qualifiedTypeNameHistroy>

@@ -36,8 +36,8 @@ public class ListenerRegistrationRequest extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("ListenerRegistrationRequest - doGet()");
-		String application = URLDecoder.decode(request.getParameter("url_redirect"), "UTF-8");
-		String secretKey = URLDecoder.decode(request.getParameter("code_secret"), "UTF-8");
+		String application = URLDecoder.decode(request.getParameter(Constants.REDIRECT), "UTF-8");
+		String secretKey = URLDecoder.decode(request.getParameter(Constants.CODE_SECRET), "UTF-8");
 
 		boolean exist = true;
 		try {
