@@ -39,4 +39,5 @@
 <fullyQualifiedTypeName name="com.ptellos.dao.DAORegisterApplication"/>
 <fullyQualifiedTypeName name="com.ptellos.dao.DAOUnsubscribeApplication"/>
 <fullyQualifiedTypeName name="com.ptellos.api.Constants"/>
+<fullyQualifiedTypeName name="com.ptellos.dao.DAOValueApplicationRequest"/>
 </qualifiedTypeNameHistroy>

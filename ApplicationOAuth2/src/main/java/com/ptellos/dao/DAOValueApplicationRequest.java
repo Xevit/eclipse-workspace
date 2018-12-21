@@ -18,7 +18,7 @@ public class DAOValueApplicationRequest {
 			c.setAutoCommit(false);
 			System.out.println("Opened database successfully");
 			stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT " + column + "FROM redoa2_application_request;");
+			ResultSet rs = stmt.executeQuery("SELECT " + column + " FROM redoa2_application_request;");
 			while (rs.next()) {
 				value = rs.getString(column);
 			}

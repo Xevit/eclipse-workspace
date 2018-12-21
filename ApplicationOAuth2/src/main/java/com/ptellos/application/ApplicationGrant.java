@@ -23,7 +23,7 @@ import com.ptellos.dao.DAOValueApplicationRequest;
  * 
  */
 
-@WebServlet("/GrantAuthorization/*")
+@WebServlet("/GrantAuthorization")
 public class ApplicationGrant extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -41,24 +41,26 @@ public class ApplicationGrant extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("ApplicationGrant - doGet()");
-		Map<String, Object> map = new HashMap<String, Object>();
 		String path = request.getRequestURI();
 		System.out.println("El path es: " + path);
-		//Primera comunicacion
+
 		if (path.equals("/" + Constants.PATH_APPLICATION + "/" + Constants.PATH_GRANT)) {
+			System.out.println("ApplicationGrant - doGet: Envío de primer contacto.");
 			String oauthUri = "";
+			String client_id = null;
 			try {
-				//Tenemos que buscar en BBDD el client_Id
-				DAOValueApplicationRequest.returnValue(Constants.CLIENT_ID);
-				// oauthUri =
-				// http://localhost:8080/APIOAuth2/GrantAuthorization?response_type=code&client_id=CLIENT_ID&redirect_uri=CALLBACK_URL&scope=read
-				oauthUri = new URIBuilder().setScheme(Constants.SCHEME).setHost(Constants.HOST).setPort(Constants.PORT)
-						.setPath("/" + Constants.PATH_API + "/" + Constants.PATH_GRANT)
-						.setParameter(Constants.RESPONSE_TYPE, Constants.RESPONSE_TYPE_PARAM)
-						.setParameter(Constants.CLIENT_ID, "")
-						.setParameter(Constants.REDIRECT_URI, Constants.REDIRECT_APPLICATION)
-						.setParameter(Constants.SCOPE, Constants.SCOPE_PARAM)
-						.build().toASCIIString();
+				client_id = DAOValueApplicationRequest.returnValue(Constants.CLIENT_ID);
+				if (client_id != null) {
+					// oauthUri =
+					// http://localhost:8080/APIOAuth2/GrantAuthorization?response_type=code&client_id=CLIENT_ID&redirect_uri=CALLBACK_URL&scope=read
+					oauthUri = new URIBuilder().setScheme(Constants.SCHEME).setHost(Constants.HOST).setPort(Constants.PORT)
+							.setPath("/" + Constants.PATH_API + "/" + Constants.PATH_GRANT)
+							.setParameter(Constants.RESPONSE_TYPE, Constants.RESPONSE_TYPE_PARAM)
+							.setParameter(Constants.CLIENT_ID, client_id)
+							.setParameter(Constants.REDIRECT_URI, Constants.REDIRECT_APPLICATION + "/" + Constants.PATH_RESPONSE_AUTHORIZATION)
+							.setParameter(Constants.SCOPE, Constants.SCOPE_PARAM)
+							.build().toASCIIString();
+				}
 			} catch (URISyntaxException e) {
 				/*
 				 * logger.debug("Ha ocurrido un error al dar de alta la aplicación en la API: "
@@ -68,10 +70,9 @@ public class ApplicationGrant extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			System.out.println("Llamamos a: \n" + oauthUri);
 			response.sendRedirect(oauthUri);
-		} else if () {
-			
-		}
+		} 
 	}
 
 	/**

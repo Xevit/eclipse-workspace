@@ -19,6 +19,8 @@ public final class Constants {
 	
 	public static final int PORT = 8080;
 	
+	//Begin PATHs
+	
 	public static final String PATH_APPLICATION  = "ApplicationOAuth2";
 	
 	public static final String PATH_API  = "APIOAuth2";
@@ -37,13 +39,16 @@ public final class Constants {
 	
 	public static final String PATH_CONFIRMATION = "Confirmation";
 	
+	public static final String PATH_RESPONSE_AUTHORIZATION = "ResponseAuthorization";
+	
+	//End PATHS
+	//Begin PARAMETERs oAuth2
+	
 	public static final String PARAMETER_EXIST  = "exist";
 	
 	public static final String CLIENT_ID = "client_id";
 	
 	public static final String CLIENT_SECRET = "client_secret";
-	
-	//Constantes relacionadas con el protocolo oAuth2
 	
 	public static final String RESPONSE_TYPE = "response_type";
 	
