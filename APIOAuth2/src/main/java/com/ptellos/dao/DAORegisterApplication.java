@@ -6,9 +6,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DAORegisterApplication {
 
+	private final static Logger LOGGER = Logger.getLogger("DAORegisterApplication");
+	
 	public static boolean existApp(String url, String key) throws Exception {
 		Connection c = null;
 		Statement stmt = null;
@@ -18,7 +22,7 @@ public class DAORegisterApplication {
 			// Ver como poner esto en un *.properties
 			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/oAuth2", "postgres", "cha43comjo");
 			c.setAutoCommit(false);
-			System.out.println("Opened database successfully");
+			LOGGER.log(Level.INFO, "Opened database successfully");
 			// Me gusta más como realiza la sentencia otro programa
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM apioa2_application_request;");
@@ -40,7 +44,7 @@ public class DAORegisterApplication {
 			System.exit(0);
 			throw (eclass);
 		}
-		System.out.println("Operation done successfully");
+		LOGGER.log(Level.INFO, "Operation done successfully");
 		return isCorrect;
 	}
 
@@ -52,6 +56,7 @@ public class DAORegisterApplication {
 			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/oAuth2", "postgres", "cha43comjo");
 			stmt = c.createStatement();
 			c.setAutoCommit(false);
+			LOGGER.log(Level.INFO, "Opened database successfully");
 			// TODO: Esto hacerlo en una funcion a parte
 			PreparedStatement st = c.prepareStatement(
 					"INSERT INTO apioa2_application_request(url_redirect, code_secret, client_id, client_secret) VALUES (?, ?, ?, ?);");
@@ -74,5 +79,6 @@ public class DAORegisterApplication {
 			System.exit(0);
 			throw (eclass);
 		}
+		LOGGER.log(Level.INFO, "Operation done successfully");
 	}
 }

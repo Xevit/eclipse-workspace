@@ -6,11 +6,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
 public class DAORegistro {
 
+	private final static Logger LOGGER = Logger.getLogger("DAORegistro");
+	
 	public static boolean existUser(String usuario) throws SQLException, ClassNotFoundException {
 		Connection c = null;
 		Statement stmt = null;
@@ -20,7 +24,7 @@ public class DAORegistro {
 			// Ver como poner esto en un *.properties
 			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/oAuth2", "postgres", "cha43comjo");
 			c.setAutoCommit(false);
-			System.out.println("Opened database successfully");
+			LOGGER.log(Level.INFO, "Opened database successfully");
 			// Me gusta más como realiza la sentencia otro programa
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM redoa2_users;");
@@ -42,7 +46,7 @@ public class DAORegistro {
 			System.exit(0);
 			throw (eclass);
 		}
-		System.out.println("Operation done successfully");
+		LOGGER.log(Level.INFO, "Operation done successfully");
 		return isCorrect;
 	}
 
@@ -58,6 +62,7 @@ public class DAORegistro {
 			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/oAuth2", "postgres", "cha43comjo");
 			stmt = c.createStatement();
 			c.setAutoCommit(false);
+			LOGGER.log(Level.INFO, "Opened database successfully");
 			// TODO: Hacerlo en funcion a parte
 			ResultSet rs1 = stmt.executeQuery("SELECT count(*) FROM redoa2_users;");
 			while (rs1.next()) {
@@ -86,5 +91,6 @@ public class DAORegistro {
 			System.exit(0);
 			throw (eclass);
 		}
+		LOGGER.log(Level.INFO, "Operation done successfully");
 	}
 }

@@ -5,6 +5,8 @@ import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.http.client.utils.URIBuilder;
 
 import com.google.gson.Gson;
-import com.ptellos.dao.DAORegisterApplication;
 import com.ptellos.dao.DAOValueApplicationRequest;
 
 /**
@@ -25,6 +26,7 @@ import com.ptellos.dao.DAOValueApplicationRequest;
 
 @WebServlet("/GrantAuthorization")
 public class ApplicationGrant extends HttpServlet {
+	private final static Logger LOGGER = Logger.getLogger("ApplicationGrant");
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -40,12 +42,15 @@ public class ApplicationGrant extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("ApplicationGrant - doGet()");
+		LOGGER.log(Level.INFO, "doGet()");
+		//ogger.debug("ApplicationGrant - doGet()");
 		String path = request.getRequestURI();
-		System.out.println("El path es: " + path);
+		LOGGER.log(Level.INFO, "El path es: " + path);
+		//logger.debug("El path es: " + path);
 
 		if (path.equals("/" + Constants.PATH_APPLICATION + "/" + Constants.PATH_GRANT)) {
-			System.out.println("ApplicationGrant - doGet: Envío de primer contacto.");
+			LOGGER.log(Level.INFO, "doGet: Envío de primer contacto.");
+			//logger.debug("ApplicationGrant - doGet: Envío de primer contacto.");;
 			String oauthUri = "";
 			String client_id = null;
 			try {
@@ -70,7 +75,7 @@ public class ApplicationGrant extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			System.out.println("Llamamos a: \n" + oauthUri);
+			LOGGER.log(Level.INFO, "Llamamos a: \n" + oauthUri);
 			response.sendRedirect(oauthUri);
 		} 
 	}
@@ -81,10 +86,10 @@ public class ApplicationGrant extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("ApplicationGrant - doPost()");
-
+		LOGGER.log(Level.INFO, "doPost()");
 		String path = request.getRequestURI();
-		System.out.println("El path es: " + path);
+		LOGGER.log(Level.INFO, "El path es: " + path);
+		//logger.debug("ApplicationGrant - doPost()");
 	}
 
 	/**

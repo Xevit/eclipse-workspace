@@ -5,6 +5,8 @@ import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,7 +27,7 @@ import com.ptellos.dao.DAORegisterApplication;
 @WebServlet("/AltaEnAPI/*")
 public class ApplicationRegistering extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	private final static Logger LOGGER = Logger.getLogger("ApplicationRegistering");
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -39,12 +41,13 @@ public class ApplicationRegistering extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("ApplicationRegistering - doGet()");
+		LOGGER.log(Level.INFO, "doGet()");
 		Map<String, Object> map = new HashMap<String, Object>();
 		String path = request.getRequestURI();
-		// if(path.equals("/ApplicationOAuth2/AltaEnAPI/Confirmation")) {
+
 		if (path.equals("/" + Constants.PATH_APPLICATION + "/" + Constants.PATH_ALTAENAPI + "/"
 				+ Constants.PATH_CONFIRMATION)) {
+			LOGGER.log(Level.INFO, "El path es: " + path);
 			// response.sendRedirect("http://localhost:8080//ApplicationOAuth2/altaEnAPI");
 			String exist = URLDecoder.decode(request.getParameter(Constants.PARAMETER_EXIST), "UTF-8");
 
@@ -82,15 +85,12 @@ public class ApplicationRegistering extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("ApplicationRegistering - doPost()");
-
+		LOGGER.log(Level.INFO, "doPost()");
 		String path = request.getRequestURI();
-		System.out.println("El path es: " + path);
 		// if (path.equals("/ApplicationOAuth2/AltaEnAPI")) {
 		if (path.equals("/" + Constants.PATH_APPLICATION + "/" + Constants.PATH_ALTAENAPI)) {
+			LOGGER.log(Level.INFO, "El path es: " + path);
 			String oauthUri = "";
-			// Logear
-			System.out.println("Entramos normal");
 			try {
 				// oauthUri =
 				// http://localhost:8080/APIOAuth2/Register?url_redirect=http://localhost:8080/ApplicationOAuth2&code_secret=NDUwODM5Nzg=

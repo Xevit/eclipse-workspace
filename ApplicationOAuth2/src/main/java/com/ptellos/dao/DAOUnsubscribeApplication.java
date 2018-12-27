@@ -5,8 +5,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DAOUnsubscribeApplication {
+	
+	private final static Logger LOGGER = Logger.getLogger("DAOUnsubscribeApplication");
+	
 	public static void unsubscribeApplication(String url) throws Exception {
 		Connection c = null;
 		Statement stmt = null;
@@ -15,6 +20,7 @@ public class DAOUnsubscribeApplication {
 			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/oAuth2", "postgres", "cha43comjo");
 			stmt = c.createStatement();
 			c.setAutoCommit(false);
+			LOGGER.log(Level.INFO, "Opened database successfully");
 			PreparedStatement st = c.prepareStatement(
 					"DELETE FROM redoa2_application_request WHERE url_redirect = ?;");
 			st.setString(1, url);
@@ -33,5 +39,6 @@ public class DAOUnsubscribeApplication {
 			System.exit(0);
 			throw (eclass);
 		}
+		LOGGER.log(Level.INFO, "Operation done successfully");
 	}
 }

@@ -3,6 +3,8 @@ package com.ptellos.api;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,7 +23,7 @@ import com.ptellos.dao.DAORegisterApplication;
 @WebServlet("/Register")
 public class ListenerRegistrationRequest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	private final static Logger LOGGER = Logger.getLogger("ListenerRegistrationRequest");
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -35,7 +37,7 @@ public class ListenerRegistrationRequest extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("ListenerRegistrationRequest - doGet()");
+		LOGGER.log(Level.INFO, "doGet()");
 		String application = URLDecoder.decode(request.getParameter(Constants.REDIRECT), "UTF-8");
 		String secretKey = URLDecoder.decode(request.getParameter(Constants.CODE_SECRET), "UTF-8");
 
@@ -70,12 +72,12 @@ public class ListenerRegistrationRequest extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("ListenerRegistrationRequest - doPost()");
+		LOGGER.log(Level.INFO, "doPost()");
 		doGet(request, response);
 	}
 
 	private String setURIExist(boolean exist) {
-		System.out.println("ListenerRegistrationRequest - setURIExist()");
+		LOGGER.log(Level.INFO, "setURIExist()");
 		String oauthUri = null;
 		// Si existia
 		try {
@@ -96,7 +98,7 @@ public class ListenerRegistrationRequest extends HttpServlet {
 	}
 
 	private String setURINotExist(boolean exist, String clientId, String clientSecret) {
-		System.out.println("ListenerRegistrationRequest - setURINotExist()");
+		LOGGER.log(Level.INFO, "setURINotExist()");
 		String oauthUri = null;
 		// Si no existia
 		try {

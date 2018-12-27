@@ -5,9 +5,13 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DAOValueApplicationRequest {
 
+	private final static Logger LOGGER = Logger.getLogger("DAOValueApplicationRequest");
+	
 	public static String returnValue(String column) throws Exception {
 		Connection c = null;
 		Statement stmt = null;
@@ -16,7 +20,7 @@ public class DAOValueApplicationRequest {
 			Class.forName("org.postgresql.Driver");
 			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/oAuth2", "postgres", "cha43comjo");
 			c.setAutoCommit(false);
-			System.out.println("Opened database successfully");
+			LOGGER.log(Level.INFO, "Opened database successfully");
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT " + column + " FROM redoa2_application_request;");
 			while (rs.next()) {
@@ -34,7 +38,7 @@ public class DAOValueApplicationRequest {
 			System.exit(0);
 			throw (eclass);
 		}
-		System.out.println("Operation done successfully");
+		LOGGER.log(Level.INFO, "Operation done successfully");
 		return value;
 	}
 	

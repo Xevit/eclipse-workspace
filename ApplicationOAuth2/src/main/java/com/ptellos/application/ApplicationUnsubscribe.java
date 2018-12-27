@@ -5,6 +5,8 @@ import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,7 +26,7 @@ import com.ptellos.dao.DAOUnsubscribeApplication;
 @WebServlet("/BajaEnAPI/*")
 public class ApplicationUnsubscribe extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	private final static Logger LOGGER = Logger.getLogger("ApplicationUnsubscribe");
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -38,7 +40,7 @@ public class ApplicationUnsubscribe extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("ApplicationUnsubscribe - doGet()");
+		LOGGER.log(Level.INFO, "doGet()");
 		Map<String, Object> map = new HashMap<String, Object>();
 		String path = request.getRequestURI();
 		if (path.equals("/ApplicationOAuth2/BajaEnAPI/Confirmation")) {
@@ -71,7 +73,7 @@ public class ApplicationUnsubscribe extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("ApplicationUnsubscribe - doPost()");
+		LOGGER.log(Level.INFO, "doPost()");
 		String path = request.getRequestURI();
 		if (path.equals("/ApplicationOAuth2/BajaEnAPI")) {
 			String oauthUri = "";

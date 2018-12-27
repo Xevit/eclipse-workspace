@@ -4,9 +4,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DAOLogin {
 
+	private final static Logger LOGGER = Logger.getLogger("DAOLogin");
+	
 	public static boolean existUser(String usuario, String password) throws Exception {
 		Connection c = null;
 		Statement stmt = null;
@@ -16,7 +20,7 @@ public class DAOLogin {
 			// Ver como poner esto en un *.properties
 			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/oAuth2", "postgres", "cha43comjo");
 			c.setAutoCommit(false);
-			System.out.println("Opened database successfully");
+			LOGGER.log(Level.INFO, "Opened database successfully");
 			// Me gusta más como realiza la sentencia otro programa
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM redoa2_users;");
@@ -34,7 +38,7 @@ public class DAOLogin {
 			System.exit(0);
 			throw (e);
 		}
-		System.out.println("Operation done successfully");
+		LOGGER.log(Level.INFO, "Operation done successfully");
 		return isCorrect;
 	}
 }

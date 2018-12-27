@@ -5,8 +5,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DAORegisterApplication {
+	
+	private final static Logger LOGGER = Logger.getLogger("DAORegisterApplication");
+	
 	public static void registerApplication(String url, String codeSecret, String clientId, String clientSecret) throws Exception {
 		Connection c = null;
 		Statement stmt = null;
@@ -15,6 +20,7 @@ public class DAORegisterApplication {
 			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/oAuth2", "postgres", "cha43comjo");
 			stmt = c.createStatement();
 			c.setAutoCommit(false);
+			LOGGER.log(Level.INFO, "Opened database successfully");
 			// TODO: Esto hacerlo en una funcion a parte
 			PreparedStatement st = c.prepareStatement(
 					"INSERT INTO redoa2_application_request(url_redirect, code_secret, client_id, client_secret) VALUES (?, ?, ?, ?);");
@@ -37,5 +43,6 @@ public class DAORegisterApplication {
 			System.exit(0);
 			throw (eclass);
 		}
+		LOGGER.log(Level.INFO, "Operation done successfully");
 	}
 }

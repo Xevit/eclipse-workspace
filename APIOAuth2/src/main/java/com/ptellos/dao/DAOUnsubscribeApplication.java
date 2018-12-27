@@ -6,8 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DAOUnsubscribeApplication {
+	
+	private final static Logger LOGGER = Logger.getLogger("DAOUnsubscribeApplication");
 	
 	public static boolean existApp(String url, String key) throws Exception {
 		Connection c = null;
@@ -18,7 +22,7 @@ public class DAOUnsubscribeApplication {
 			// Ver como poner esto en un *.properties
 			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/oAuth2", "postgres", "cha43comjo");
 			c.setAutoCommit(false);
-			System.out.println("Opened database successfully");
+			LOGGER.log(Level.INFO, "Opened database successfully");
 			// Me gusta más como realiza la sentencia otro programa
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM apioa2_application_request;");
@@ -40,7 +44,7 @@ public class DAOUnsubscribeApplication {
 			System.exit(0);
 			throw (eclass);
 		}
-		System.out.println("Operation done successfully");
+		LOGGER.log(Level.INFO, "Operation done successfully");
 		return isCorrect;
 	}
 
@@ -52,6 +56,7 @@ public class DAOUnsubscribeApplication {
 			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/oAuth2", "postgres", "cha43comjo");
 			stmt = c.createStatement();
 			c.setAutoCommit(false);
+			LOGGER.log(Level.INFO, "Opened database successfully");
 			PreparedStatement st = c.prepareStatement(
 					"DELETE FROM apioa2_application_request WHERE url_redirect = ?;");
 			st.setString(1, url);
@@ -70,5 +75,6 @@ public class DAOUnsubscribeApplication {
 			System.exit(0);
 			throw (eclass);
 		}
+		LOGGER.log(Level.INFO, "Operation done successfully");
 	}
 }

@@ -3,6 +3,8 @@ package com.ptellos.api;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,7 +23,7 @@ import com.ptellos.dao.DAOUnsubscribeApplication;
 @WebServlet("/Unsubscribe")
 public class ListenerUnsubscribeRequest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	private final static Logger LOGGER = Logger.getLogger("ListenerUnsubscribeRequest");
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -35,7 +37,7 @@ public class ListenerUnsubscribeRequest extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("ListenerUnsubscribeRequest - doGet()");
+		LOGGER.log(Level.INFO, "doGet()");
 		String application = URLDecoder.decode(request.getParameter("url_redirect"), "UTF-8");
 		String secretKey = URLDecoder.decode(request.getParameter("code_secret"), "UTF-8");
 
@@ -62,12 +64,12 @@ public class ListenerUnsubscribeRequest extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("ListenerUnsubscribeRequest - doPost()");
+		LOGGER.log(Level.INFO, "doPost()");
 		doGet(request, response);
 	}
 
 	private String setURI(boolean exist) {
-		System.out.println("ListenerUnsubscribeRequest - setURI()");
+		LOGGER.log(Level.INFO, "setURI()");
 		String oauthUri = null;
 		if (exist) {
 			// Si existia
