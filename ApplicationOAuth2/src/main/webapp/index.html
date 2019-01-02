@@ -6,6 +6,11 @@
 <link href="css/font-awesome.min.css" rel="stylesheet">
 <!-- Custom styles for this template -->
 <link href="css/jumbotron.css" rel="stylesheet">
+<link rel="icon" href="demo_icon.gif" type="image/gif" sizes="16x16">
+
+<!--Bootsrap 4 CDN-->
+	<!--Custom styles-->
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
 	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
@@ -75,23 +80,28 @@
 				<div class="col-md-6">
 					<h2>Grant authorization</h2>
 					<p>Conceder autorización de recursos</p>
-					<!-- <form id="grantAuthorizatiAPI" style="display: block;">
-						<button type="submit" class="btn btn-seconday btn-lg"
-							data-toggle="modal" data-target="#grantApiModal">Grant</button>
-						<input type="submit">
-					</form> -->
-						<a class="btn btn-secondary" href="GrantAuthorization" role="button">Grant</a>
+					<!-- <a class="btn btn-secondary" href="GrantAuthorization" role="button">Grant</a> -->
+					<a onclick="grantAuthorization()" class="btn btn-secondary btn-lg"
+						role="button">Grant</a>
+					<script>
+							function grantAuthorization(){
+								window.open("GrantAuthorization",'targetWindow',
+		                                   'toolbar=no','location=no','status=no','menubar=no','scrollbars=yes','resizable=yes','width=8','height=13');
+							}
+						</script>
 				</div>
 				<div class="col-md-6">
 					<h2>Refuse authorization</h2>
 					<p>Denegar autorización de recursos</p>
-					<!-- <p><a class="btn btn-secondary" href="BajaEnAPI" role="button">BajaEnAPI &raquo;</a></p> -->
-					<!-- <form id="refuseAuthorizatiAPI" style="display: block;">
-						<button type="submit" class="btn btn-seconday btn-lg"
-							data-toggle="modal" data-target="#refuseApiModal">Refuse</button>
-						<input type="submit">
-					</form> -->
-						<a class="btn btn-secondary" href="RefuseAuthorization" role="button">Refuse</a>
+					<!-- <a class="btn btn-secondary" href="RefuseAuthorization" role="button">Refuse</a> -->
+					<a onclick="refuseAuthorization()" class="btn btn-secondary btn-lg"
+						role="button">Refuse</a>
+					<script>
+						function refuseAuthorization(){
+							window.open("RefuseAuthorization",'targetWindow',
+											'toolbar=no','location=no','status=no','menubar=no','scrollbars=yes','resizable=yes','width=8','height=13');
+						}
+						</script>
 				</div>
 			</div>
 		</div>

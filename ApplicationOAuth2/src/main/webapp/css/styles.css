@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css?family=Numans');
+
+html,body{
+/*background-image: url('http://getwallpapers.com/wallpaper/full/6/f/e/34403.jpg');*/
+background-size: cover;
+background-repeat: no-repeat;
+height: 100%;
+font-family: 'Numans', sans-serif;
+background-image: linear-gradient(#007bff, #c1fbee);
+padding-top: 1rem;
+}
+
+.jumbotron {
+    background: rgba(233,236,239,0.4);
+    margin-top: 0;
+}
+
+footer {
+    padding-top: 3rem;
+}
+
+.col-md-6{
+	padding-top: 2rem;
+}
+
+.btn-secondary {
+    color: #fff;
+    background-color: transparent; 
+    border-color: #6c757d;
+}
+

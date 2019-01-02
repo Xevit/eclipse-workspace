@@ -11,15 +11,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ptellos.dao.DAOSearchApplication;
 
 @WebServlet("/GrantAuthorization")
-public class ListenerGrant extends HttpServlet{
+public class ListenerGrant extends HttpServlet {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private final static Logger LOGGER = Logger.getLogger("ListenerGrant");
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -33,9 +35,28 @@ public class ListenerGrant extends HttpServlet{
 		String client_id = URLDecoder.decode(request.getParameter(Constants.CLIENT_ID), "UTF-8");
 		String redirect_uri = URLDecoder.decode(request.getParameter(Constants.REDIRECT_URI), "UTF-8");
 		String scope = URLDecoder.decode(request.getParameter(Constants.SCOPE), "UTF-8");
-		LOGGER.log(Level.INFO, "Parametros: " + " Response_Type: " + response_type + " Client_Id: " + client_id + " Redirect_Uri: " + redirect_uri + " Scope: " + scope);
-		//Ahora comprobaremos si en la BBDD se ha dado de alta este usuario con este client_id
-		
+		// Ahora comprobaremos si en la BBDD se ha dado de alta este usuario con este
+		// client_id
+		if ((response_type != null) && (client_id != null) && (redirect_uri != null) && (scope != null)) {
+			LOGGER.log(Level.INFO, "Parametros: " + " Response_Type: " + response_type + " Client_Id: " + client_id
+					+ " Redirect_Uri: " + redirect_uri + " Scope: " + scope);
+			boolean exist = false;
+			if (response_type.equals("code")) {
+				try {
+					exist = DAOSearchApplication.existApp(client_id, redirect_uri);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					LOGGER.log(Level.SEVERE, "Error en el acceso a la BBDD: " + e);
+				}
+				if (exist) {
+					LOGGER.log(Level.INFO, "La aplicación dispone de permisos para acceder a la concesión de autorización");
+					request.getRequestDispatcher("login.html").forward(request, response); 
+				} else {
+					LOGGER.log(Level.WARNING, "La aplicación no dispone de permisos para acceder a la concesión de autorización");
+					request.getRequestDispatcher("loginOff.html").forward(request, response); 
+				}
+			}
+		}
 	}
 
 	/**
