@@ -1,9 +1,10 @@
 package com.ptellos.api;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,8 +14,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.http.client.utils.URIBuilder;
+
 import com.google.gson.Gson;
 import com.ptellos.dao.DAOLogin;
+import com.ptellos.dao.DAOSetAuthorizationCode;
 
 /**
  * Servlet implementation class ProcessGrant
@@ -37,14 +41,45 @@ public class ProcessGrant extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		LOGGER.log(Level.INFO, "Se accede a ProcessGrant mediante GET");
+		LOGGER.log(Level.INFO, "ProcessGrant mediante GET");
+		String client_id = URLDecoder.decode(request.getParameter(Constants.CLIENT_ID), "UTF-8");
+		String redirect_uri = URLDecoder.decode(request.getParameter(Constants.REDIRECT_URI), "UTF-8");
+		LOGGER.log(Level.INFO, "client_id: " + client_id + "\t request_uri: " + redirect_uri);
+		String authorization_code = new RandomStringGenerator().nextString();
+		//Aquí hay que comprobar primero si existe el clientId antes de meterlo ya que si no nos podrían meter cualquier cosa.
+		try {
+			if (DAOSetAuthorizationCode.existApp(client_id)) {
+				LOGGER.log(Level.INFO, "La aplicación está dada de alta y tiene autorización");
+				try {
+					DAOSetAuthorizationCode.setApplication(client_id, authorization_code);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				String oauthUri = "";
+				try {
+					oauthUri = new URIBuilder()
+							.setPath(redirect_uri)
+							.setParameter(Constants.RESPONSE_TYPE_PARAM, authorization_code)
+							.build().toASCIIString();
+				} catch (URISyntaxException e) {
+					e.printStackTrace();
+				}
+				LOGGER.log(Level.INFO, "Llamamos a: \n" + oauthUri);
+				response.sendRedirect(oauthUri);
+			} else {
+				LOGGER.log(Level.INFO, "La aplicación NO está dada de alta y NO tiene autorización");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		LOGGER.log(Level.INFO, "ProcessGrant mediante POST");
 		String nombre = request.getParameter("username");
 		String password = request.getParameter("password");
 		Map<String, Object> map = new HashMap<String, Object>();
