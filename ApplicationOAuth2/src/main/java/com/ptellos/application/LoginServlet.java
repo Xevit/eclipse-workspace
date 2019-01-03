@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
@@ -80,8 +81,7 @@ public class LoginServlet extends HttpServlet {
 				existUser = true;
 			}
 		} catch (Exception e) {
-			// TODO Activar LOGGER
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Error: " + e);
 		}
 		return existUser;
 	}
