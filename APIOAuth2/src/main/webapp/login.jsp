@@ -17,7 +17,6 @@
 
 	<!--Custom styles-->
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
-	<script src="js/login.js"></script>
 </head>
 <body>
 <div class="container">
@@ -65,5 +64,25 @@
 		</div>
 	</div>
 </div>
+<script>
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        }
+    }
+};
+
+var client_id = getUrlParameter('client_id');
+var redirect_uri = getUrlParameter('redirect_uri');
+</script>
+<script src="js/login.js"></script>
 </body>
 </html>

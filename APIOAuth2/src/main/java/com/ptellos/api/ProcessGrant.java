@@ -19,7 +19,7 @@ import com.ptellos.dao.DAOLogin;
 /**
  * Servlet implementation class ProcessGrant
  */
-@WebServlet("/ProcessGrant")
+@WebServlet("/ProcessGrant/*")
 public class ProcessGrant extends HttpServlet {
 	private final static Logger LOGGER = Logger.getLogger("ProcessGrant");
 	private static final long serialVersionUID = 1L;
@@ -37,7 +37,7 @@ public class ProcessGrant extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		LOGGER.log(Level.INFO, "Se accede a ProcessGrant mediante GET");
 	}
 
 	/**
@@ -60,25 +60,22 @@ public class ProcessGrant extends HttpServlet {
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, "Error de acceso a DAOLogin: " + e);
 		}
-		final boolean valid = isValidUser; 
-		Thread thread = new Thread(){
-		    public void run(){
-		    	LOGGER.log(Level.INFO, "Se abre un hilo adicional");
-		    	if (valid) {
-					LOGGER.log(Level.INFO, "Finalizado el proceso con Ajax. Procedemos a tramitar el Authorization Code");
-					//Procesamos todo lo que tenga que ver con la respuesta a la Application
-					try {
-						response.sendRedirect("ProcessGrant");
-					} catch (IOException e) {
-						LOGGER.log(Level.SEVERE, "Error al realizar la redirección: " + e);
-						e.printStackTrace();
-					}
-				}
-		    }
-		};		
+//		Thread thread1 = new Thread(){
+//		    public void run(){
+//		    	LOGGER.log(Level.INFO, "Se abre un hilo adicional");
+//				//Procesamos todo lo que tenga que ver con la respuesta a la Application
+//				try {
+//					response.sendRedirect("http://localhost:8080/APIOAuth2/ProcessGrant");
+//					LOGGER.log(Level.INFO, "Finalizado el proceso con Ajax. Procedemos a tramitar el Authorization Code");
+//				} catch (IOException e) {
+//					LOGGER.log(Level.INFO, "Error al realizar la redirección: " + e);
+//					e.printStackTrace();
+//				}
+//		    }
+//		};		
 		map.put("isValidUser", isValidUser);
 		write(response, map);
-		thread.start();
+		
 	}
 	
 	private void write(HttpServletResponse response, Map<String, Object> map) throws IOException {

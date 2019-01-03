@@ -50,12 +50,15 @@ public class ListenerGrant extends HttpServlet {
 				}
 				if (exist) {
 					LOGGER.log(Level.INFO, "La aplicación dispone de permisos para acceder a la concesión de autorización");
-					//request.getRequestDispatcher("login.html").forward(request, response);
-					response.sendRedirect("login.jsp");
+					//Tenemos que pasarle el redirect_uri y el client_id
+					String cID = request.getParameter(Constants.CLIENT_ID);
+					String rURI = request.getParameter(Constants.REDIRECT_URI);
+					response.sendRedirect("login.jsp" + "?" + Constants.CLIENT_ID + "=" + cID + "&"
+							+ Constants.REDIRECT_URI + "=" + rURI);
 				} else {
 					LOGGER.log(Level.WARNING, "La aplicación no dispone de permisos para acceder a la concesión de autorización");
-					//request.getRequestDispatcher("loginOff.html").forward(request, response);
-					response.sendRedirect("loginOff.html");
+					request.getRequestDispatcher("loginOff.html").forward(request, response);
+					//response.sendRedirect("loginOff.html");
 				}
 			}
 		}
