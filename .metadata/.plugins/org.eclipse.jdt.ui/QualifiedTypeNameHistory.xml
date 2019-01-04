@@ -43,6 +43,8 @@
 <fullyQualifiedTypeName name="org.apache.log4j.Logger"/>
 <fullyQualifiedTypeName name="java.util.logging.Logger"/>
 <fullyQualifiedTypeName name="org.apache.log4j.Level"/>
-<fullyQualifiedTypeName name="java.util.logging.Level"/>
 <fullyQualifiedTypeName name="com.ptellos.dao.DAOSearchApplication"/>
+<fullyQualifiedTypeName name="java.util.concurrent.TimeUnit"/>
+<fullyQualifiedTypeName name="java.util.logging.Level"/>
+<fullyQualifiedTypeName name="com.ptellos.dao.DAOSetAuthorizationCode"/>
 </qualifiedTypeNameHistroy>

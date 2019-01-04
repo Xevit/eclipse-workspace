@@ -61,6 +61,7 @@ public class ProcessGrant extends HttpServlet {
 					oauthUri = new URIBuilder()
 							.setPath(redirect_uri)
 							.setParameter(Constants.RESPONSE_TYPE_PARAM, authorization_code)
+							.setParameter(Constants.CLIENT_ID, client_id)
 							.build().toASCIIString();
 				} catch (URISyntaxException e) {
 					e.printStackTrace();
@@ -94,20 +95,7 @@ public class ProcessGrant extends HttpServlet {
 			}
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, "Error de acceso a DAOLogin: " + e);
-		}
-//		Thread thread1 = new Thread(){
-//		    public void run(){
-//		    	LOGGER.log(Level.INFO, "Se abre un hilo adicional");
-//				//Procesamos todo lo que tenga que ver con la respuesta a la Application
-//				try {
-//					response.sendRedirect("http://localhost:8080/APIOAuth2/ProcessGrant");
-//					LOGGER.log(Level.INFO, "Finalizado el proceso con Ajax. Procedemos a tramitar el Authorization Code");
-//				} catch (IOException e) {
-//					LOGGER.log(Level.INFO, "Error al realizar la redirección: " + e);
-//					e.printStackTrace();
-//				}
-//		    }
-//		};		
+		}		
 		map.put("isValidUser", isValidUser);
 		write(response, map);
 		
