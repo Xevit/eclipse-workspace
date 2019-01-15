@@ -35,6 +35,12 @@ public final class Constants {
 	
 	public static final String PATH_GRANT  = "GrantAuthorization";
 	
+	public static final String PATH_END = "EndTransmission";
+	
+	public static final String PATH_GRANT_FIRST  = "FirstStep";
+	
+	public static final String PATH_GRANT_SECOND  = "SecondStep";
+	
 	public static final String PATH_REFUSE  = "RefuseAuthorization";
 	
 	public static final String PATH_CONFIRMATION = "Confirmation";

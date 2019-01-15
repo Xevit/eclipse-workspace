@@ -34,6 +34,7 @@ dependencies {
 	testCompile 'org.mockito:mockito-core:2.7.19'
 	compile 'org.postgresql:postgresql:42.2.4'
 	compile files('lib/gson-2.6.2.jar')
+	compile files('lib/google-http-client-1.24.1.jar')
 	//compile files('lib/httpclient-4.2.jar')
 	compile 'org.apache.httpcomponents:httpclient:4.2'
 	//compile files('lib/log4j-1.2-api-2.11.1.jar')

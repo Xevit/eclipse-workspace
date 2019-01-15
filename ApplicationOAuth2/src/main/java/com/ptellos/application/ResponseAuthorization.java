@@ -22,19 +22,21 @@ import com.ptellos.dao.DAOSearch;
 public class ResponseAuthorization extends HttpServlet {
 	private final static Logger LOGGER = Logger.getLogger("ResponseAuthorization");
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ResponseAuthorization() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public ResponseAuthorization() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		LOGGER.log(Level.INFO, "Entramos  mediante GET");
 		String authorization_code = URLDecoder.decode(request.getParameter(Constants.RESPONSE_TYPE_PARAM), "UTF-8");
 		String client_id = URLDecoder.decode(request.getParameter(Constants.CLIENT_ID), "UTF-8");
@@ -43,13 +45,17 @@ public class ResponseAuthorization extends HttpServlet {
 		try {
 			if (DAOSearch.existClient(client_id)) {
 				String client_secret = DAOSearch.returnClientSecret(client_id);
-				//Buscamos en BBDD el client_Secret
+				// Buscamos en BBDD el client_Secret
 				oauthUri = new URIBuilder().setScheme(Constants.SCHEME).setHost(Constants.HOST).setPort(Constants.PORT)
-						.setPath("/" + Constants.PATH_API + "/" + Constants.PATH_GRANT)
+						.setPath("/" + Constants.PATH_API + "/" + Constants.PATH_GRANT + "/"
+								+ Constants.PATH_GRANT_SECOND)
 						.setParameter(Constants.CLIENT_ID, client_id)
 						.setParameter(Constants.CLIENT_SECRET, client_secret)
 						.setParameter(Constants.RESPONSE_TYPE_PARAM, authorization_code)
-						.setParameter(Constants.REDIRECT_URI, Constants.REDIRECT_APPLICATION + "/" + Constants.PATH_GRANT)
+						.setParameter(Constants.REDIRECT_URI,
+								Constants.REDIRECT_APPLICATION + "/" + Constants.PATH_GRANT)
+						// .setParameter(Constants.REDIRECT_URI, Constants.REDIRECT_APPLICATION + "/" +
+						// Constants.PATH_END)
 						.build().toASCIIString();
 			}
 		} catch (Exception e) {
@@ -60,9 +66,11 @@ public class ResponseAuthorization extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		LOGGER.log(Level.INFO, "Entramos  mediante POST");
 		doGet(request, response);
 	}
