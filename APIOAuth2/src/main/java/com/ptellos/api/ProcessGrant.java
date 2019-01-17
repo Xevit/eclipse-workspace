@@ -51,6 +51,7 @@ public class ProcessGrant extends HttpServlet {
 			if (DAOSetAuthorizationCode.existApp(client_id)) {
 				LOGGER.log(Level.INFO, "La aplicación está dada de alta y tiene autorización");
 				try {
+					//TODO: Aquí primero tenemos que comprobar si ya existe para no saturar la BBDD.
 					DAOSetAuthorizationCode.setApplication(client_id, authorization_code);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block

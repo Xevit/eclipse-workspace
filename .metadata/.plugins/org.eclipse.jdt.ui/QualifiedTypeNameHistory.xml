@@ -26,7 +26,6 @@
 <fullyQualifiedTypeName name="java.io.ByteArrayOutputStream"/>
 <fullyQualifiedTypeName name="java.io.OutputStream"/>
 <fullyQualifiedTypeName name="java.io.InputStreamReader"/>
-<fullyQualifiedTypeName name="java.io.BufferedReader"/>
 <fullyQualifiedTypeName name="com.ptellos.application.Constants"/>
 <fullyQualifiedTypeName name="org.apache.http.client.utils.URIUtils"/>
 <fullyQualifiedTypeName name="java.net.URLDecoder"/>
@@ -43,7 +42,6 @@
 <fullyQualifiedTypeName name="java.util.concurrent.TimeUnit"/>
 <fullyQualifiedTypeName name="java.util.logging.Level"/>
 <fullyQualifiedTypeName name="com.ptellos.dao.DAOSetAuthorizationCode"/>
-<fullyQualifiedTypeName name="com.ptellos.dao.DAOValueApplicationRequest"/>
 <fullyQualifiedTypeName name="com.ptellos.dao.DAOSearch"/>
 <fullyQualifiedTypeName name="com.ptellos.dao.DAOInsert"/>
 <fullyQualifiedTypeName name="com.ptellos.api.RandomStringGenerator"/>
@@ -56,4 +54,10 @@
 <fullyQualifiedTypeName name="com.google.api.client.http.HttpResponse"/>
 <fullyQualifiedTypeName name="com.google.api.client.http.HttpTransport"/>
 <fullyQualifiedTypeName name="com.google.api.client.http.javanet.NetHttpTransport"/>
+<fullyQualifiedTypeName name="java.sql.Time"/>
+<fullyQualifiedTypeName name="java.io.BufferedReader"/>
+<fullyQualifiedTypeName name="com.google.api.client.util.IOUtils"/>
+<fullyQualifiedTypeName name="com.google.gson.JsonObject"/>
+<fullyQualifiedTypeName name="org.json.JSONObject"/>
+<fullyQualifiedTypeName name="com.ptellos.dao.DAOValueApplicationRequest"/>
 </qualifiedTypeNameHistroy>

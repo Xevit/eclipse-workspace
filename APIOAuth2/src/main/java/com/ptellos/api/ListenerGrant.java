@@ -99,31 +99,18 @@ public class ListenerGrant extends HttpServlet {
 					// Guardamos todos los valores en apioa2_application_record. Esta parte llamamos
 					// a POST
 
-					DAOInsert.setCorrectGrant(client_id, client_secret, access_token, refresh_token, expires_in); // ERROR
-																													// EN
-																													// TIPO
-																													// DE
-																													// EXPIRES_IN
+					DAOInsert.setCorrectGrant(client_id, client_secret, access_token, refresh_token, expires_in);
 					String URI = URLDecoder.decode(redirect_uri, "UTF-8");
 					responsePost(URI, access_token, expires_in, refresh_token);
-
-					// Construimos la URI de vuelta
-					// oauthUri = new URIBuilder()
-					// .setPath(redirect_uri)
-					// .setParameter(Constants.ACCESS_TOKEN, access_token)
-					// .setParameter(Constants.TOKEN_TYPE, Constants.TOKEN_TYPE_VALUE)
-					// .setParameter(Constants.EXPIRES_IN, expires_in + "")
-					// .setParameter(Constants.REFRESH_TOKEN, refresh_token)
-					// .setParameter(Constants.SCOPE, Constants.SCOPE_VALUE)
-					// .build().toASCIIString();
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			// redirección a página para cerrar la ventana.
-			// LOGGER.log(Level.INFO, "Llamamos a: \n" + oauthUri);
-			// response.sendRedirect(oauthUri);
+			LOGGER.log(Level.INFO, "Finalizamos el proceso en la parte de la API");
+			response.sendRedirect(Constants.SCHEME + "://" + Constants.HOST + ":" + Constants.PORT + "/"
+					+ Constants.PATH_API + "/" + "endAuthorization.jsp"); 
 		}
 	}
 

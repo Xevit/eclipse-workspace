@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -116,9 +117,34 @@ public class ApplicationGrant extends HttpServlet {
 			e.printStackTrace();
 		}
 		try {
-			// Esto es correcto.
-			LOGGER.log(Level.INFO, "El contenido del POST en JSON es: " + sb.toString() + "\n JSON: "
-					+ jsonObj.getString("access_token"));
+			LOGGER.log(Level.INFO, "El contenido del POST en JSON es: " + sb.toString());
+			String access_token = jsonObj.getString("access_token");
+			String token_type = jsonObj.getString("token_type");
+			String expires = jsonObj.getString("expires_in");
+			String refresh_token = jsonObj.getString("refresh_token");
+			String scope = jsonObj.getString("scope");
+			if ((access_token != null) && (token_type != null) && (expires != null) && (refresh_token != null)
+					&& (scope != null)) {
+				LOGGER.log(Level.INFO, "Split de la info en el  JSON.\n access_token: " + access_token + " token_type: "
+						+ token_type + " expires_in: " + expires + " refresh_token: " + refresh_token + " scope: " + scope);
+				long expires_in = Long.parseLong(expires);
+				String url_redirect = "";
+				try {
+					url_redirect = new URIBuilder().setScheme(Constants.SCHEME).setHost(Constants.HOST)
+							.setPort(Constants.PORT)
+							.setPath("/" + Constants.PATH_API).build().toASCIIString();
+				} catch (URISyntaxException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				try {
+					DAOValueApplicationRequest.setApplicationCredentials(url_redirect, access_token, token_type, expires_in, refresh_token);
+				} catch (ClassNotFoundException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
