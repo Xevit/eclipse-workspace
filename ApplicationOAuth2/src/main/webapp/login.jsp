@@ -4,32 +4,29 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
-		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<link href="css/login.css" rel="stylesheet">
-		<link href="css/jumbotron.css" rel="stylesheet">
+		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+		<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 		
-		<script src="js/jquery-1.11.1.min.js"></script>	
+		<!-- <script src="js/jquery-1.11.1.min.js"></script> -->
+		<!-- <script src="js/bootstrap.min.js"></script> -->
+		
+		<!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
+		<link href="css/login.css" rel="stylesheet">
+		<link href="css/jumbotron.css" rel="stylesheet">	
 		<script src="js/ajax_json_log.js"></script>
-		<script src="js/bootstrap.min.js"></script>
 		<script src="js/login.js"></script>	
 	</head>
 <body>
 	<!-- <nav class="navbar navbar-expand-md navbar-dark fixed-top">
       <a id="oAuth2" class="navbar-brand" href="/ApplicationOAuth2">oAuth2</a>
     </nav> -->
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
+    <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
 		<a id="oAuth2" class="navbar-brand" href="/ApplicationOAuth2">oAuth2</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbarsExampleDefault"
-			aria-controls="navbarsExampleDefault" aria-expanded="false"
-			aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
 	</nav>
 	<div class="container">
     	<div class="row">
-			<div class="col-md-6 col-md-offset-6">
+			<div class="col-md-6 col-md-offset-3">
 				<div class="panel panel-login">
 					<div class="panel-heading">
 						<div class="row">
